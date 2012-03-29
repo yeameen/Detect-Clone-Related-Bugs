@@ -1,0 +1,12 @@
+conservative:
+  "BUG": [BUG]
+  "FALSE": [SMELL, STYLE, CHECK, "FALSE"]
+
+medium:
+  "BUG": [BUG, SMELL]
+  "FALSE": [STYLE, CHECK, "FALSE"]
+
+false_priority:
+  "HARMFUL": [BUG, SMELL, STYLE, CHECK]
+  "FALSE": ["FALSE"]
+
