@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -15,7 +14,6 @@ public class ArffGenerator {
 
     private static final int INDEX_FEATURE_NAME = 1;
 
-    private static final String FILENAME_ARFF = "training.arff";
     private static final String HEADING_BEGINNING = "@RELATION ";
     private static final String HEADING_DATA = "@DATA";
     private static final String DATA_BEGINNING = "{";
@@ -32,14 +30,9 @@ public class ArffGenerator {
 
         // read configuration file
         Yaml yaml = new Yaml();
-        Map<String, Map<String, ArrayList<String>>> outputClasses = (Map<String, Map<String, ArrayList<String>>>) yaml.load(new FileInputStream(new File(FILE_CONFIGURATION)));
+        Map<String, Map<String, ArrayList<String>>> classificationBoundaryMap = (Map<String, Map<String, ArrayList<String>>>) yaml.load(new FileInputStream(new File(FILE_CONFIGURATION)));
 
-        for (String className : outputClasses.keySet()) {
-            System.out.println(className + ": " + outputClasses.get(className));
-        }
-
-
-        for (String className : outputClasses.keySet()) {
+        for (String classificationBoundaryType : classificationBoundaryMap.keySet()) {
 
             File inputFile = new File(args[0]);
             CSVReader reader = new CSVReader(new FileReader(inputFile));
@@ -82,12 +75,12 @@ public class ArffGenerator {
                 index++;
             }
 
-            for (Integer exampleNumber : examples.keySet()) {
-                System.out.println(exampleNumber + ": " + examples.get(exampleNumber));
-            }
+//            for (Integer exampleNumber : examples.keySet()) {
+//                System.out.println(exampleNumber + ": " + examples.get(exampleNumber));
+//            }
 
             // Create ARFF
-            BufferedWriter writer = new BufferedWriter(new FileWriter(className + ".arff"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(classificationBoundaryType + ".arff"));
 
             writer.write(HEADING_BEGINNING + "BugFind");
             writer.write(SPACE_NEWLINE);
@@ -102,9 +95,7 @@ public class ArffGenerator {
             // 2.2.2 class attribute
             writer.write("@ATTRIBUTE\tclass\t");
             writer.write(DATA_BEGINNING);
-//        writer.write(StringUtils.join(Category.values(), ','));
-//            writer.write("BUG, FALSE");
-            writer.write(StringUtils.join(outputClasses.get(className).keySet(), ","));
+            writer.write(StringUtils.join(classificationBoundaryMap.get(classificationBoundaryType).keySet(), ","));
             writer.write(DATA_ENDING);
 
             writer.write(SPACE_NEWLINE);
@@ -123,19 +114,12 @@ public class ArffGenerator {
                 // write classification
                 // TODO: This is where you I play around
                 String classification = cloneProperties.getCategory().toString();
-                for (String name : outputClasses.get(className).keySet()) {
-                    Set<String> classes = new HashSet<String>(outputClasses.get(className).get(name));
+                for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
+                    Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
                     if(classes.contains(classification)) {
                         writer.write(index + " " + name.toUpperCase());
                     }
                 }
-
-//                if (classification.equals("BUG") || classification.equals("SMELL")) {
-//                    writer.write(index + " BUG");
-//                } else {
-//                    writer.write(index + " FALSE");
-//                }
-//            writer.write(index + " " + (cloneProperties.getCategory().toString().equals("BUG") ? "BUG" : "FALSE"));
 
                 writer.write(DATA_ENDING);
                 writer.write(SPACE_NEWLINE);
