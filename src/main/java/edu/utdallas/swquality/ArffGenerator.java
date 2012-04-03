@@ -1,6 +1,5 @@
 package edu.utdallas.swquality;
 
-import au.com.bytecode.opencsv.CSVReader;
 import edu.utdallas.swquality.util.ArffUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
@@ -22,8 +21,8 @@ public class ArffGenerator {
     private static final String FILE_CONFIGURATION = "data/output_classes.yml";
 
     public static void main(String[] args) throws IOException {
-        if (args.length != 1 || args[0].length() == 0) {
-            System.err.println("Usage: program <csv filename>");
+        if (args.length != 2 || args[0].length() == 0 || args[1].length() == 0) {
+            System.err.println("Usage: program <csv filename> <dejavu filename>");
             return;
         }
 
@@ -31,6 +30,8 @@ public class ArffGenerator {
         Map<Integer, String> featureMap = new TreeMap<Integer, String>();
 
         int classificationIndex = ArffUtil.readCSV(args[0], examples, featureMap);
+        //TODO: pretty sure this is misnomer, but for now...
+        ArffUtil.readDejavuOutput(args[1],examples);
 
         // read configuration file
         Yaml yaml = new Yaml();

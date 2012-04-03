@@ -7,8 +7,8 @@ import edu.utdallas.swquality.CloneProperties;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -77,6 +77,70 @@ public class ArffUtil {
         }
 
         return index;
+    }
+
+
+        /**
+        *  Reads output from dejavu and populate examples with similarity
+         *
+         *  @param inputFileName Input Dejavu File (expecting .txt format)
+         *  @param examples
+         *  @throws IOException
+         *
+        * */
+    public static void readDejavuOutput(String inputFileName, Map<Integer, CloneProperties> examples) throws IOException {
+        Scanner dejavuInputScanner = new Scanner(new FileReader(new File(inputFileName)));
+
+        if(examples == null)
+        {
+            examples = new TreeMap<Integer, CloneProperties>();
+        }
+
+        String lineInput;
+        String[] parsed;
+        int cloneGroup; //same as exampleNumber in CSVReader.
+        float txtSim;
+        int dist;
+
+
+        //we assume sequential scanning and proper ordering in file
+        while(dejavuInputScanner.hasNext())
+        {
+            lineInput = dejavuInputScanner.nextLine();
+            int index = lineInput.indexOf("Clone group ");
+            if(index > 0)
+            {
+                parsed = lineInput.split(" ");
+                cloneGroup = Integer.parseInt(parsed[3].substring(0, parsed[3].length()-1));
+
+                //read until attributes shows,
+                dejavuInputScanner.nextLine();
+                lineInput = dejavuInputScanner.nextLine();
+                parsed = lineInput.split(" ");
+
+                txtSim = Float.parseFloat(parsed[4]);
+                if(parsed[parsed.length-1].equals("inf"))
+                {
+                    dist = Integer.MAX_VALUE;
+                }
+                else
+                {
+                    dist = Integer.parseInt(parsed[parsed.length-1]);
+                }
+                //x
+                // System.out.println(cloneGroup + " sim: " + txtSim + ", dist: " + dist);
+                CloneProperties cloneProperties = examples.get(cloneGroup);
+                if (cloneProperties == null) {
+                    cloneProperties = new CloneProperties();
+                }
+                cloneProperties.setDistance(dist);
+                cloneProperties.setTextSim(txtSim);
+                examples.put(cloneGroup, cloneProperties);
+            }
+
+        }
+
+        dejavuInputScanner.close();
     }
 
 }
