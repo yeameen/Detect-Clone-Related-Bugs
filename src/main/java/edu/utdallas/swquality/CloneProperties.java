@@ -9,7 +9,7 @@ public class CloneProperties {
     ArrayList<Integer> diffProperties;
     Category category;
     float textSim;
-    int distance;
+    float distance;
 
     public CloneProperties() {
         diffProperties = new ArrayList<Integer>();
@@ -39,12 +39,12 @@ public class CloneProperties {
         this.textSim = textSim;
     }
 
-    public int getDistance()
+    public float getDistance()
     {
         return this.distance;
     }
 
-    public void setDistance(int distance)
+    public void setDistance(float distance)
     {
         this.distance = distance;
     }

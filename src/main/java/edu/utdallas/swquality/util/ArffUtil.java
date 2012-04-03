@@ -17,6 +17,8 @@ import java.util.TreeMap;
 public class ArffUtil {
 
     private static final int INDEX_FEATURE_NAME = 1;
+    private static final int DISTANCE_THRESHOLD_LOW = 50;
+    private static final int DISTANCE_THRESHOLD_HIGH = 200;
 
     /**
      * Reads feature data from CSV, populate data structures and return total number of features
@@ -133,7 +135,7 @@ public class ArffUtil {
                 if (cloneProperties == null) {
                     cloneProperties = new CloneProperties();
                 }
-                cloneProperties.setDistance(dist);
+                cloneProperties.setDistance(normalizeDistance(dist));
                 cloneProperties.setTextSim(txtSim);
                 examples.put(cloneGroup, cloneProperties);
             }
@@ -142,5 +144,27 @@ public class ArffUtil {
 
         dejavuInputScanner.close();
     }
+
+    private static float normalizeDistance(int distance)
+    {
+        float result;
+        if(distance < DISTANCE_THRESHOLD_LOW)
+        {
+            result = 0;
+        }
+        else if(distance > DISTANCE_THRESHOLD_HIGH)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = (float)(distance - DISTANCE_THRESHOLD_LOW) / (DISTANCE_THRESHOLD_HIGH - DISTANCE_THRESHOLD_LOW);
+        }
+
+        return result;
+
+
+    }
+
 
 }
