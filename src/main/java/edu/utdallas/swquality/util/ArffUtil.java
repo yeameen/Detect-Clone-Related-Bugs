@@ -16,6 +16,7 @@ import java.util.TreeMap;
  */
 public class ArffUtil {
 
+    private static final int INDEX_FEATURE_NUMBER = 0;
     private static final int INDEX_FEATURE_NAME = 1;
     private static final int DISTANCE_THRESHOLD_LOW = 50;
     private static final int DISTANCE_THRESHOLD_HIGH = 200;
@@ -50,10 +51,11 @@ public class ArffUtil {
 
         // Iterate over data dimension
         while ((lineArrayInput = reader.readNext()) != null) {
+            String featureNumber = lineArrayInput[INDEX_FEATURE_NUMBER];
             String featureName = lineArrayInput[INDEX_FEATURE_NAME];
 
             // If any empty line
-            if (featureName == null || featureName.isEmpty()) {
+            if (featureNumber == null || featureNumber.isEmpty() || featureName == null || featureName.isEmpty()) {
                 continue;
             }
 

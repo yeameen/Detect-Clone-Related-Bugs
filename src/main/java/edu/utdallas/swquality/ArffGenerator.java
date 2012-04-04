@@ -18,7 +18,7 @@ public class ArffGenerator {
     private static final String DATA_ENDING = "}";
     private static final String SPACE_NEWLINE = "\n";
 
-    private static final String FILE_CONFIGURATION = "data/output_classes.yml";
+    private static final String FILE_CONFIGURATION = "conf/output_classes.yml";
 
     public static void main(String[] args) throws IOException {
         if (args.length != 2 || args[0].length() == 0 || args[1].length() == 0) {
@@ -51,6 +51,8 @@ public class ArffGenerator {
                 String attributeName = "\"" + featureNumber + " " + featureMap.get(featureNumber) + "\"";
                 writer.write("@ATTRIBUTE\t" + attributeName + "\tinteger\n");
             }
+            writer.write("@ATTRIBUTE\t\"TxtSim\"\tnumeric\n");
+            writer.write("@ATTRIBUTE\t\"Distance\"\tnumeric\n");
 
             // 2.2.2 class attribute
             writer.write("@ATTRIBUTE\tclass\t");
@@ -58,9 +60,6 @@ public class ArffGenerator {
             writer.write(StringUtils.join(classificationBoundaryMap.get(classificationBoundaryType).keySet(), ","));
             writer.write(DATA_ENDING);
 
-            writer.write(SPACE_NEWLINE);
-            writer.write("@ATTRIBUTE\t\"TxtSim\"\tnumeric\n");
-            writer.write("@ATTRIBUTE\t\"Distance\"\tnumeric\n");
 
 
             writer.write(SPACE_NEWLINE);
@@ -76,18 +75,18 @@ public class ArffGenerator {
                     writer.write(featureNumber + " 1,");
                 }
 
+                writer.write(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
+                writer.write(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
+
                 // write classification
-                // TODO: This is where you I play around
                 String classification = cloneProperties.getCategory().toString();
                 for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
                     Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
                     if(classes.contains(classification)) {
-                        writer.write(classificationIndex + " " + name.toUpperCase());
+                        writer.write(classificationIndex+2 + " " + name.toUpperCase());
                     }
                 }
 
-                writer.write(", 26 " + examples.get(cloneNumber).getTextSim());
-                writer.write(", 27 " + examples.get(cloneNumber).getDistance());
 
                 writer.write(DATA_ENDING);
                 writer.write(SPACE_NEWLINE);

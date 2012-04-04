@@ -10,3 +10,10 @@ false_priority:
   "HARMFUL": [BUG, SMELL, STYLE, CHECK]
   "FALSE": ["FALSE"]
 
+bug_n_check:
+  "BUG": [BUG, CHECK]
+  "FALSE": [STYLE, SMELL, "FALSE"]
+
+bug_check_smell:
+  "HARMFUL": [BUG, CHECK, SMELL]
+  "FALSE": [STYLE, "FALSE"]
