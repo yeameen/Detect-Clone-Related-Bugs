@@ -59,6 +59,11 @@ public class ArffGenerator {
             writer.write(DATA_ENDING);
 
             writer.write(SPACE_NEWLINE);
+            writer.write("@ATTRIBUTE\t\"TxtSim\"\tnumeric\n");
+            writer.write("@ATTRIBUTE\t\"Distance\"\tnumeric\n");
+
+
+            writer.write(SPACE_NEWLINE);
             writer.write(SPACE_NEWLINE);
 
             writer.write(HEADING_DATA);
@@ -80,6 +85,9 @@ public class ArffGenerator {
                         writer.write(classificationIndex + " " + name.toUpperCase());
                     }
                 }
+
+                writer.write(", 26 " + examples.get(cloneNumber).getTextSim());
+                writer.write(", 27 " + examples.get(cloneNumber).getDistance());
 
                 writer.write(DATA_ENDING);
                 writer.write(SPACE_NEWLINE);

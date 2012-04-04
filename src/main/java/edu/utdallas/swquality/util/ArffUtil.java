@@ -114,6 +114,10 @@ public class ArffUtil {
             {
                 parsed = lineInput.split(" ");
                 cloneGroup = Integer.parseInt(parsed[3].substring(0, parsed[3].length()-1));
+                CloneProperties cloneProperties = examples.get(cloneGroup);
+                if (cloneProperties == null) {
+                    continue;
+                }
 
                 //read until attributes shows,
                 dejavuInputScanner.nextLine();
@@ -131,10 +135,6 @@ public class ArffUtil {
                 }
                 //x
                 // System.out.println(cloneGroup + " sim: " + txtSim + ", dist: " + dist);
-                CloneProperties cloneProperties = examples.get(cloneGroup);
-                if (cloneProperties == null) {
-                    cloneProperties = new CloneProperties();
-                }
                 cloneProperties.setDistance(normalizeDistance(dist));
                 cloneProperties.setTextSim(txtSim);
                 examples.put(cloneGroup, cloneProperties);
