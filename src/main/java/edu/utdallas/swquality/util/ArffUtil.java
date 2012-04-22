@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.Vector;
 
 /**
  * Utility functions for generating arff file
@@ -83,17 +84,17 @@ public class ArffUtil {
         return index;
     }
 
-
         /**
         *  Reads output from dejavu and populate examples with similarity
          *
          *  @param inputFileName Input Dejavu File (expecting .txt format)
-         *  @param examples
-         *  @throws IOException
+         *  @param examples where features will be stored
+         *  @throws IOException on FileRead
          *
         * */
     public static void readDejavuOutput(String inputFileName, Map<Integer, CloneProperties> examples) throws IOException {
-        Scanner dejavuInputScanner = new Scanner(new FileReader(new File(inputFileName)));
+        Scanner dejavuInputScanner;
+        dejavuInputScanner = new Scanner(new FileReader(new File(inputFileName)));
 
         if(examples == null)
         {
@@ -106,7 +107,6 @@ public class ArffUtil {
         float txtSim;
         int dist;
 
-
         //we assume sequential scanning and proper ordering in file
         while(dejavuInputScanner.hasNext())
         {
@@ -118,7 +118,7 @@ public class ArffUtil {
                 cloneGroup = Integer.parseInt(parsed[3].substring(0, parsed[3].length()-1));
                 CloneProperties cloneProperties = examples.get(cloneGroup);
                 if (cloneProperties == null) {
-                    continue;
+                    cloneProperties = new CloneProperties();
                 }
 
                 //read until attributes shows,
@@ -139,7 +139,40 @@ public class ArffUtil {
                 // System.out.println(cloneGroup + " sim: " + txtSim + ", dist: " + dist);
                 cloneProperties.setDistance(normalizeDistance(dist));
                 cloneProperties.setTextSim(txtSim);
+
+                // read until find buggy differences
+
+
+
                 examples.put(cloneGroup, cloneProperties);
+                index = dejavuInputScanner.nextLine().indexOf("Potentially buggy differences:");
+                while(index < 0)
+                {
+                    index = dejavuInputScanner.nextLine().indexOf("Potentially buggy differences:");
+                }
+                //start buggy difference..
+                lineInput = dejavuInputScanner.nextLine();
+//                System.out.println(cloneGroup + ": " + lineInput);
+                index = lineInput.indexOf("-------------------------------------------------------------------------");
+                Vector<String> codes = new Vector<String>();
+                Vector<String> changes = new Vector<String>();
+                while(index < 0 )
+                {
+                    index = lineInput.indexOf("-------------------------------------------------------------------------");
+                    if(index > 0)
+                    {
+                        break;
+                    }
+                    while(lineInput.equals(""))
+                    {
+                        lineInput = dejavuInputScanner.nextLine();
+                    }
+                    codes.add(lineInput);
+                    changes.add(dejavuInputScanner.nextLine());
+                    lineInput = dejavuInputScanner.nextLine();
+                }
+                System.out.println("\t\t\tthis is for clone group " + cloneGroup);
+                extractFeatures(codes, changes, cloneProperties);
             }
 
         }
@@ -168,5 +201,21 @@ public class ArffUtil {
 
     }
 
+    private static void extractFeatures(Vector<String> codes, Vector<String> changes, CloneProperties cloneProperties)
+    {
+        //We place our extraction logic here...
+
+        if(codes.size()!=changes.size())
+        {
+            System.err.println("UNEXPECTED CASE: codes and changes are of different size");
+        }
+
+        for(int i = 0 ; i < codes.size(); i++)
+        {
+            System.out.println(codes.get(i));
+            System.out.println(changes.get(i));
+        }
+
+    }
 
 }
