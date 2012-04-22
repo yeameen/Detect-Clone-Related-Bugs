@@ -68,28 +68,32 @@ public class ArffGenerator {
             writer.write(HEADING_DATA);
             writer.write(SPACE_NEWLINE);
             for (Integer cloneNumber : examples.keySet()) {
-                writer.write(DATA_BEGINNING);
-
                 CloneProperties cloneProperties = examples.get(cloneNumber);
-                for (Integer featureNumber : cloneProperties.getDiffProperties()) {
-                    writer.write(featureNumber + " 1,");
-                }
-
-                writer.write(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
-                writer.write(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
 
                 // write classification
-                String classification = cloneProperties.getCategory().toString();
-                for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
-                    Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
-                    if(classes.contains(classification)) {
-                        writer.write(classificationIndex+2 + " " + name.toUpperCase());
+                Category classifiedCategory= cloneProperties.getCategory();
+                if(classifiedCategory != null)
+                {
+                    writer.write(DATA_BEGINNING);
+
+                    for (Integer featureNumber : cloneProperties.getDiffProperties()) {
+                        writer.write(featureNumber + " 1,");
                     }
+
+                    writer.write(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
+                    writer.write(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
+                    String classification = cloneProperties.getCategory().toString();
+                    for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
+                        Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
+                        if(classes.contains(classification)) {
+                            writer.write(classificationIndex+2 + " " + name.toUpperCase());
+                        }
+                    }
+                    writer.write(DATA_ENDING);
+                    writer.write(SPACE_NEWLINE);
                 }
 
 
-                writer.write(DATA_ENDING);
-                writer.write(SPACE_NEWLINE);
             }
 
             writer.close();
