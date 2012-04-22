@@ -17,3 +17,7 @@ bug_n_check:
 bug_check_smell:
   "HARMFUL": [BUG, CHECK, SMELL]
   "FALSE": [STYLE, "FALSE"]
+
+bug_check_style:
+  "HARMFUL": ["BUG", "CHECK", "STYLE"]
+  "BENIGN":  ["SMELL", "FALSE"]
