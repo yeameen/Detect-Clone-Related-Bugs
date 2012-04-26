@@ -1,4 +1,4 @@
-FEATURES,,,WEIGHTS,7,5,3,1,0,,,,,,,,,
+FEATURES,,,WEIGHTS,7,5,3,1,0
 ,First Phase,Explanation/comment,Example no.,"Example(BUG)
 Weight = 7","Example(SMELL)
 Weight = 5","Example(STYLE)
@@ -14,47 +14,47 @@ Weight = 0)","COUNT
 SUM(Weight*No. Examples)/TOTAL_NUM_OF_EXAMPLES)","//TODO: What we might want to do is that 
 we probably give it some weight according to the number of examples.","//ALSO maybe we can incorporate 
 ""TxtSim"" into this ""SEVERITY"" as well"
-1,Change in number of conditions,,"1(CHECK), 7(BUG), 11(BUG), 77(BUG), 83(SMELL), 96(CHECK), 112(BUG), 113(STYLE), 115(BUG), 126(BUG), 136(CHECK)","7, 11, 77, 112, 115, 126",83,113,"1, 96, 136",,6,1,1,3,,11,4.8181818182,,
-2,new return,,"2(STYLE), 9(CHECK), 74(CHECK), 80(BUG), 85(BUG), 98(BUG), 100(SMELL), 103(SMELL), 125(STYLE)","80, 85, 98","100, 103","2, 125","9, 74",,3,2,2,2,,9,4.3333333333,,
-3,inversion of condition,,"2(STYLE), 103(SMELL)",,103,2,,,,1,1,,,2,4,,
-4,Calling a function,,"3(BUG), 18(SMELL), 68(SMELL), 69(SMELL), 70(BUG), 71(SMELL), 73(CHECK), 82(SMELL), 101(SMELL), 108(BUG)","3, 70, 108","68, 69, 71, 82, 101",,73,,3,5,,1,,9,5.2222222222,,
-5,Calling a function with pointer,,"3(BUG), 110(FALSE), 113(STYLE), 114(CHECK), 117(FALSE), 118(CHECK), 124(FALSE), 131(BUG)","3, 131",,113,"114, 118","110, 117, 124",2,,1,2,3,8,2.375,,
-6,Calling a resource allocation/release function,,"98(BUG), 117(FALSE), 118(CHECK), 123(BUG), 124(FALSE)","98, 123",,,118,"117, 124",2,,,1,2,5,3,,
-7,Change in return statement,,"4(BUG), 84(BUG)","84, 4",,,,,2,,,,,2,7,,
-8,Introduction of variable definition,,"69(SMELL), 74(CHECK), 76(SMELL), 78(CHECK), 79(CHECK), 86(CHECK), 87(BUG), 88(FALSE), 89(SMELL), 90(CHECK), 92(BUG), 94(CHECK), 95(STYLE), 105(FALSE), 107(BUG), 108(BUG), 110(FALSE), 116(STYLE), 119(FALSE), 121(SMELL), 122(CHECK), 135(SMELL)","87, 92, 107, 108","69, 76, 89, 121, 135","94, 95, 116","74, 78, 79, 86, 90, 122","88, 105, 110, 119",4,5,3,6,4,22,3.0909090909,,
-9,Introduction of new def-clear path,,"8(BUG), 92(BUG), 105(FALSE), 107(BUG), 108(BUG), 118(CHECK), 122(CHECK), 134(SMELL)","8, 92, 107, 108",134,,"118, 122",105,4,1,,2,1,8,4.375,,
-10,Different Constructor usage,,"109(STYLE), 133(FALSE)",,,109,,133,,,1,,1,2,1.5,,
-11,Diff contains a logical operator,,"1, 77(BUG), 83(SMELL), 96(CHECK), 98(BUG), 99(CHECK), 104(BUG), 112(BUG), 113(STYLE), 115(BUG), 120(STYLE), 126(BUG), 129(STYLE), 132(BUG), 136(CHECK)","77, 98, 104, 115, 126, 132",83,"113, 120, 129","99, 136",,6,1,3,2,,12,4.8333333333,,
-12,Change in Condition,,"75(SMELL), 79(CHECK), 98(BUG), 104(BUG), 113(STYLE), 114(CHECK), 120(STYLE), 129(STYLE), 130(CHECK)","98, 104",75,"113, 120, 129","79, 114, 130",,2,1,3,3,,9,3.4444444444,,
-13,Change in Counter for loops and its usage,,"91(FALSE), 93(FALSE), 128(FALSE)",,,,,"91, 93, 128",,,,,3,3,0,,
-14,Change in function params,,"5(CHECK), 9(CHECK), 17(CHECK), 72(CHECK), 78(CHECK), )82(SMELL), 94(CHECK), 99(CHECK), 102(FALSE), 106(CHECK), 109(STYLE), 118(CHECK), 127(FALSE)",,82,109,"5, 9, 72, 78, 94, 99, 106, 118","102, 127",,1,1,8,2,12,1.3333333333,,
-15,Introduction of Branch,this includes #ifdef/#endif,"6(BUG), 15(BUG), 69(SMELL), 80(BUG), 85(BUG), 90(CHECK), 98(BUG), 103(SMELL), 123(BUG)","6, 15, 69, 80, 85, 98, 123",103,,,,7,1,,,,8,6.75,,
-16,Introduction of Empty Branch,,97(SMELL),,97,,,,,1,,,,1,5,,
-17,Introduction of function sizeOf ,maybe related to incorrect mem read,111(FALSE),,,,,111,,,,,1,1,0,,
-18,Change of variable type,Including type cast,"10(FALSE), 15(BUG), 111(FALSE)",1,,,,"10, 111",1,,,,2,3,2.3333333333,,
-19,"Adding MACRO with name (CHECK, ENSURE, FAIL, SUCCESS, TRUE, FALSE, ASSERTION)",,"75(SMELL), 78(CHECK), 83(SMELL), 92(BUG), 101(SMELL), 106(CHECK), 108(BUG)","92, 108","75, 83, 101",,"78, 106",,2,3,,2,,7,4.4285714286,,
-20,Line Reordering,,81(FALSE),,,,,81,,,,,1,1,0,,
-21,new break/continue,Can be merged to return,"15(BUG), 9(STYLE)",,,9,,,,,1,,,1,3,,
-22,Variable assignment,,"11(BUG), 12(FALSE), 14(CHECK), 17(CHECK)",11,,,"14, 17",12,1,,,2,1,4,2.25,,
-23,Change in expression,,16(FALSE),,,,,16,,,,,1,1,0,,
-,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
-,,,,,,,,,,,,,,0,0,,
+1,Change in number of conditions,,"1(CHECK), 7(BUG), 11(BUG), 22(BUG), 28(CHECK), 35(BUG), 77(BUG), 83(SMELL), 96(CHECK), 112(BUG), 113(STYLE), 115(BUG), 126(BUG), 136(CHECK)","7, 11, 22, 35, 52,77, 112, 115, 126","28, 44, 63, 83",113,"1, 96, 136",,9,4,1,3,,17,5.23529411764706
+2,new return,,"2(STYLE), 9(CHECK), 39(BUG), 74(CHECK), 80(BUG), 85(BUG), 98(BUG), 100(SMELL), 103(SMELL), 125(STYLE)","39, 48,62,80, 85, 98","44, 100, 103","2, 125","9, 74",,6,3,2,2,,13,5
+3,inversion of condition,,"2(STYLE), 103(SMELL)",,103,2,,,,1,1,,,2,4
+4,Calling a function,,"3(BUG), 18(SMELL), 22(BUG), 26(BUG), 27(BUG), 29(BUG), 30(BUG), 31(CHECK), 38(BUG), 68(SMELL), 69(SMELL), 70(BUG), 71(SMELL), 73(CHECK), 82(SMELL), 101(SMELL), 108(BUG)","3, 22, 26, 27, 29, 30, 38, 42, 61,70, 108","47, 60, 68, 69, 71, 82, 101",,"31, 46,73",,11,7,,3,,21,5.47619047619048
+5,Calling a function with pointer,,"3(BUG), 110(FALSE), 113(STYLE), 114(CHECK), 117(FALSE), 118(CHECK), 124(FALSE), 131(BUG)","3, 131",55,113,"114, 118","59, 110, 117, 124",2,1,1,2,4,10,2.4
+6,Calling a resource allocation/release function,,"98(BUG), 117(FALSE), 118(CHECK), 123(BUG), 124(FALSE)","98, 123",47,,118,"117, 124",2,1,,1,2,6,3.33333333333333
+7,Change in return statement,,"4(BUG), 84(BUG), 32(BUG), 36(FALSE), 37(SMELL)","4, 32, 42, 84","37, 43",,,"36,65",4,2,,,2,8,4.75
+8,Introduction of variable definition,,"69(SMELL), 74(CHECK), 76(SMELL), 78(CHECK), 79(CHECK), 86(CHECK), 87(BUG), 88(FALSE), 89(SMELL), 90(CHECK), 92(BUG), 94(CHECK), 95(STYLE), 105(FALSE), 107(BUG), 108(BUG), 110(FALSE), 116(STYLE), 119(FALSE), 121(SMELL), 122(CHECK), 135(SMELL)","87, 92, 107, 108","69, 76, 89, 121, 135","53,94, 95, 116","74, 78, 79, 86, 90, 122","88, 105, 110, 119",4,5,4,6,4,23,3.08695652173913
+9,Introduction of new def-clear path,,"8(BUG), 19(CHECK), 24(BUG), 92(BUG), 105(FALSE), 107(BUG), 108(BUG), 118(CHECK), 122(CHECK), 134(SMELL)","8, 24, 49,92, 107, 108","41, 44,56, 134",,"19, 118, 122",105,6,4,,3,1,14,4.64285714285714
+10,Different Constructor usage,,"109(STYLE), 133(FALSE)",,,109,,133,,,1,,1,2,1.5
+11,Diff contains a logical operator,,"1, 77(BUG), 83(SMELL), 96(CHECK), 98(BUG), 99(CHECK), 104(BUG), 112(BUG), 113(STYLE), 115(BUG), 120(STYLE), 126(BUG), 129(STYLE), 132(BUG), 136(CHECK)","77, 98, 104, 115, 126, 132",83,"113, 120, 129","99, 136",,6,1,3,2,,12,4.83333333333333
+12,Change in Condition,,"75(SMELL), 79(CHECK), 98(BUG), 104(BUG), 113(STYLE), 114(CHECK), 120(STYLE), 129(STYLE), 130(CHECK)","98, 104",75,"113, 120, 129","79, 114, 130",,2,1,3,3,,9,3.44444444444444
+13,Change in Counter for loops and its usage,,"91(FALSE), 93(FALSE), 128(FALSE)",,,,,"91, 93, 128",,,,,3,3,0
+14,Change in function params,,"5(CHECK), 9(CHECK), 17(CHECK), 20(BUG), 34(CHECK), 40(FALSE), 72(CHECK), 78(CHECK), )82(SMELL), 94(CHECK), 99(CHECK), 102(FALSE), 106(CHECK), 109(STYLE), 118(CHECK), 127(FALSE)","20,49,61","55,82","53, 109","5, 9, 34, 72, 78, 94, 99, 106, 118","40, 50,54,102, 127",3,2,2,9,5,21,2.19047619047619
+15,Introduction of Branch,this includes #ifdef/#endif,"6(BUG), 15(BUG), 21(BUG), 29(BUG), 39(BUG), 69(SMELL), 80(BUG), 85(BUG), 90(CHECK), 98(BUG), 103(SMELL), 123(BUG)","6, 15, 21, 29, 39, 49, 51,58,62,69, 80, 85, 98, 123","60, 63, 64, 103",,,,14,4,,,,18,6.55555555555556
+16,Introduction of Empty Branch,,"26(BUG), 97(SMELL)",26,97,,,,1,1,,,,2,6
+17,Introduction of function sizeOf ,maybe related to incorrect mem read,111(FALSE),,,,,111,,,,,1,1,0
+18,Change of variable type,Including type cast,"10(FALSE), 15(BUG), 34(CHECK), 45(FALSE), 111(FALSE)",1,,,34,"10, 45, 111",1,,,1,3,5,1.6
+19,"Adding MACRO with name (CHECK, ENSURE, FAIL, SUCCESS, TRUE, FALSE, ASSERTION)",,"75(SMELL), 78(CHECK), 83(SMELL), 92(BUG), 101(SMELL), 106(CHECK), 108(BUG)","57,92, 108","75, 83, 101",,"78, 106",,3,3,,2,,8,4.75
+20,Line Reordering,,81(FALSE),,,,,81,,,,,1,1,0
+21,new break/continue,Can be merged to return,"15(BUG), 21(BUG), 9(STYLE)","15, 21","43, 44",9,,,2,2,1,,,5,5.4
+22,Variable assignment,,"11(BUG), 12(FALSE), 14(CHECK), 17(CHECK), 19(CHECK), 23(CHECK), 24(BUG), 41(SMELL)","11,24","41, 44",,"14, 17, 19, 23",12,2,2,,4,1,9,3.11111111111111
+23,Change in expression,,"16(FALSE), 25(FALSE)",49,,,,"16, 25",1,,,,2,3,2.33333333333333
+,,,,,,,,,,,,,,0,0
+,*NOT EASILY CLASSIFIABLE,,,,,,,,,,,,,0,0
+,"70(BUG), 110(FALSE), 116(STYLE), 119(FALSE), 117(FALSE), 124(FALSE), 133(FALSE) 12(CHECK), 33(FALSE)",,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0
+,,,,,,,,,,,,,,0,0

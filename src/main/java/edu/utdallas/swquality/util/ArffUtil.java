@@ -7,9 +7,7 @@ import edu.utdallas.swquality.CloneProperties;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Utility functions for generating arff file
@@ -83,17 +81,17 @@ public class ArffUtil {
         return index;
     }
 
-
         /**
         *  Reads output from dejavu and populate examples with similarity
          *
          *  @param inputFileName Input Dejavu File (expecting .txt format)
-         *  @param examples
-         *  @throws IOException
+         *  @param examples where features will be stored
+         *  @throws IOException on FileRead
          *
         * */
     public static void readDejavuOutput(String inputFileName, Map<Integer, CloneProperties> examples) throws IOException {
-        Scanner dejavuInputScanner = new Scanner(new FileReader(new File(inputFileName)));
+        Scanner dejavuInputScanner;
+        dejavuInputScanner = new Scanner(new FileReader(new File(inputFileName)));
 
         if(examples == null)
         {
@@ -106,7 +104,6 @@ public class ArffUtil {
         float txtSim;
         int dist;
 
-
         //we assume sequential scanning and proper ordering in file
         while(dejavuInputScanner.hasNext())
         {
@@ -118,7 +115,7 @@ public class ArffUtil {
                 cloneGroup = Integer.parseInt(parsed[3].substring(0, parsed[3].length()-1));
                 CloneProperties cloneProperties = examples.get(cloneGroup);
                 if (cloneProperties == null) {
-                    continue;
+                    cloneProperties = new CloneProperties();
                 }
 
                 //read until attributes shows,
@@ -139,7 +136,40 @@ public class ArffUtil {
                 // System.out.println(cloneGroup + " sim: " + txtSim + ", dist: " + dist);
                 cloneProperties.setDistance(normalizeDistance(dist));
                 cloneProperties.setTextSim(txtSim);
+
+                // read until find buggy differences
+
+
+
                 examples.put(cloneGroup, cloneProperties);
+                index = dejavuInputScanner.nextLine().indexOf("Potentially buggy differences:");
+                while(index < 0)
+                {
+                    index = dejavuInputScanner.nextLine().indexOf("Potentially buggy differences:");
+                }
+                //start buggy difference..
+                lineInput = dejavuInputScanner.nextLine();
+//                System.out.println(cloneGroup + ": " + lineInput);
+                index = lineInput.indexOf("-------------------------------------------------------------------------");
+                Vector<String> codes = new Vector<String>();
+                Vector<String> changes = new Vector<String>();
+                while(index < 0 )
+                {
+                    index = lineInput.indexOf("-------------------------------------------------------------------------");
+                    if(index > 0)
+                    {
+                        break;
+                    }
+                    while(lineInput.equals(""))
+                    {
+                        lineInput = dejavuInputScanner.nextLine();
+                    }
+                    codes.add(lineInput);
+                    changes.add(dejavuInputScanner.nextLine());
+                    lineInput = dejavuInputScanner.nextLine();
+                }
+                System.out.println("\t\t\tthis is for clone group " + cloneGroup);
+                extractFeatures(codes, changes, cloneProperties);
             }
 
         }
@@ -168,5 +198,150 @@ public class ArffUtil {
 
     }
 
+    private static void extractFeatures(Vector<String> codes, Vector<String> changes, CloneProperties cloneProperties)
+    {
+        //We place our extraction logic here...
+
+        if(codes.size()!=changes.size())
+        {
+            System.err.println("UNEXPECTED CASE: codes and changes are of different size");
+        }
+
+        //only for property 19
+        String[] values = {"CHECK", "ENSURE", "FAIL", "SUCCESS", "TRUE", "FALSE", "ASSERTION"};
+
+
+        //we extract changes from the changed lines
+        String changeSeq;
+        String codeSeq;
+        Vector<String> codeChanges;
+        for(int i = 0 ; i < codes.size(); i++)
+        {
+            System.out.println(codes.get(i));
+            System.out.println(changes.get(i));
+            //for each changes
+            codeChanges = new Vector<String>();
+
+            changeSeq = changes.get(i);
+            codeSeq = codes.get(i);
+            if(changeSeq.length() > 0)
+            {
+                String changed = "";
+                for(int j = 0 ; j < changeSeq.length(); ++j)
+                {
+                    char changeChar = changeSeq.charAt(j);
+                    if(changeChar == '-' || changeChar == '^')
+                    {
+                       changed += codeSeq.charAt(j) ;
+                    }
+                    else
+                    {
+                        if(!changed.equals(""))
+                        {
+                            codeChanges.add(changed);
+                        }
+                        changed = "";
+                    }
+                }
+                if(!changed.equals(""))
+                {
+                    codeChanges.add(changed);
+                }
+
+                //first apply easy filters that can be found only by examining changed segments,
+                if(codeSeq.contains("return")   && !codeChanges.contains("return"))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,7);
+                }
+//                if(codeSeq.contains("new"))      try to cover properties 10, but might be dangerous
+//                {
+//                   addValueToDiffpropertiesInCloneProperties(cloneProperties, 10);
+//                }
+                if(codeSeq.contains("sizeOf"))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,17);
+                }
+                if(contains(codeSeq, values))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,19);
+                }
+
+                Iterator<String> iterator = codeChanges.iterator();
+                //apply filter to each changed "words"
+                while(iterator.hasNext())
+                {
+                    String changedCode = iterator.next();
+
+                    if(changedCode.contains("return") || changedCode.contains("break") || changedCode.contains("continue"))  // introduction of new return , continue or break (originally 21, but merged)
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,2);
+                    }
+                    if(changedCode.contains("&&")   || changedCode.contains("||")  ) //if change contains && or || which means it probably contain
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,1);
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,12); // and it will also be change in condition
+                    }
+                    if(changedCode.contains("==")  ) //adding more check for change in logical operator
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,12); // and it will also be change in condition
+                    }
+                    else if(codeSeq.contains("=")  ) // if an assignment is found
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,8); // and it will also be change in condition
+                    }
+                    if(changedCode.contains("!")   && changedCode.contains("(") && changedCode.contains(")")) //inversion
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,3);
+                    }
+                    if(changedCode.contains("if")   || changedCode.contains("for")   || changedCode.contains("while"))
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,15);
+                    }
+                    //else for that '(' will not be part of if-statement or for-statement, but of function...
+                    else if(changedCode.contains("(")   || codeSeq.contains(changedCode + "(")  )//if the change itself is function or just functionname changed
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,4);
+                    }
+                    if(changedCode.contains("->")  ) //if it is pointer function call,
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,5);
+                    }
+                    if(changedCode.contains("NS_RELEASE")   || changedCode.contains("free")    || changedCode.contains("NS_Free")   ) //if it is resource allocation/release function
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,6);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void addValueToDiffpropertiesInCloneProperties(CloneProperties cloneProperties, int value)
+    {
+       if(cloneProperties.getDiffProperties().contains(value))
+       {
+           return;
+       }
+        cloneProperties.getDiffProperties().add(value);
+    }
+
+    //utility function
+
+    /**
+     *
+     * @param string main string to compare against values
+     * @param values array of string that contains strings to be compared to
+     */
+    private static boolean contains(String string, String[] values)
+    {
+        int len = values.length;
+        for(int i = 0; i < len ; ++i)
+        {
+            if(string.contains(values[i]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
