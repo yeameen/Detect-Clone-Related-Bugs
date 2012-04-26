@@ -1,0 +1,56 @@
+\begin{thebibliography}{1}
+
+\bibitem{Baker1995}
+B.~S. Baker.
+\newblock On finding duplication and near-duplication in large software
+  systems.
+\newblock pages 86--95, 1995.
+
+\bibitem{Baxter1998}
+Y.~A. M. L. S. M. B.~L. Baxter, Ira~D.
+\newblock Clone detection using abstract syntax trees.
+\newblock pages 368--377, 1998.
+
+\bibitem{Engler2001}
+C.~D. H. S. C. A. C.~B. Engler, D.
+\newblock Bugs as deviant behavior: A general approach to inferring errors in
+  systems code.
+\newblock volume~35, pages 57--72, 2001.
+
+\bibitem{Gabel2010}
+Y.~J. Y. Y. G. M. S.~Z. Gabel, M.
+\newblock Scalable and systematic detection of buggy inconsistencies in source
+  code.
+\newblock pages 175--190, 2010.
+
+\bibitem{Jiang2007}
+M.~G. S. Z. G.~S. Jiang, L.
+\newblock Deckard: Scalable and accurate tree-based detection of code clones.
+\newblock pages 96--105, 2007.
+
+\bibitem{Kamiya2002}
+K.~S. I.~K. Kamiya, T.
+\newblock Ccfinder: A multilinguistic token-based code clone detection system
+  for large scale source code.
+\newblock {\em IEEE Transactions on Software Engineering}, 28(7):654--670,
+  2002.
+
+\bibitem{Kim2005}
+S.~V. N. D. M.~G. Kim, M.
+\newblock An empirical study of code clone genealogies.
+\newblock pages 187--196, 2005.
+
+\bibitem{Li2006}
+L.~S. M. S. Z.~Y. Li, Z.
+\newblock Cp-miner: Finding copy-paste and related bugs in large-scale software
+  code.
+\newblock {\em IEEE Transactions on Software Engineering}, 32(3):176--192,
+  2006.
+
+\bibitem{Li2005}
+Z.~Y. Li, Z.
+\newblock Pr-miner: Automatically extracting implicit programming rules and
+  detecting violations in large software code.
+\newblock pages 306--315, 2005.
+
+\end{thebibliography}

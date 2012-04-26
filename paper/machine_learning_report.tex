@@ -4,8 +4,6 @@
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage[english]{babel}
-%\usepackage{citeref}
-%\renewcommand{\bibitempages}[1]{}
 
 \title{Machine Learning Model for Detecting \\Clone Related Bugs}
 \author{Chowdhury Ashabul Yeameen\\
@@ -61,7 +59,7 @@ Original code duplicated and pasted in the same file about 100 lines distance. F
 
 \vspace{10 pt}
 \noindent
-There are several initiative to detect these kind of bugs in software clone anomalies and all of these showed accuracy between 10\%-30\% accuracy. Those techniques[1,3,4,5,7,8,9,10] start with near match clone detection and applied some rules to distinguish bugs from benign code. Those rule based solutions are based on some kind of heuristics which are sometimes very much target project specific and suffer from platform dependency, or in many cases project dependency of their work. The target of this machine learning model is provide a generic solution for detecting this particular type of bug without any manual training and exhibit some significant improvement in accuracy over other existing works.
+There are several initiative to detect these kind of bugs in software clone anomalies and all of these showed accuracy between 10\%-30\% accuracy. Those techniques[1,3,4,5,7,8,9,10] start with near match clone detection and applied some rules to distinguish bugs from benign code. Those rule based solutions are based on some kind of heuristics which are sometimes very much target project specific and suffer from platform dependency, or in many cases project dependency. The target of this machine learning model is provide a generic solution for detecting this particular type of bugs without any manual training and to prove this can lead to some significant improvement in accuracy over any other existing work.
 
 \subsection{System Overview}
 Our proposed Learning method requires labeled data to work. We started with a sample output of recent clone detection research[10] published in OPSLA 2010 and improve the accuracy on the same data. The procedure involves the following steps:
@@ -69,20 +67,15 @@ Our proposed Learning method requires labeled data to work. We started with a sa
 \begin{enumerate}
 
 \item
-\textbf{ Extract code features from the nearly match clones diff output}
-
+\textbf{ Extract code features from the nearly match clones diff output}\\
 For this particular problem features are the semantic difference between code clones. Because of the strict control on intolerance of variance between clones, there doesn’t exist much difference between code clones. Most of the times difference is by modification of few tokens. Therefore for each data point there are generally one or two feature. One alternative approach can be considering one specific feature to multiple generalize feature. For example assigning a value to a new variable can be considered as both new def-clear path as well as variable declaration. But most cases this didn’t show any significant difference in result that's why such mapping is avoided in this project. Those features are extracted and annotated manually in an spreadsheet and later a script read that file and generated arff.
-\textbf{\item Extract few more features like distance between code clones}
-
+\textbf{\item Extract few more features like distance between code clones}\\
 If both clones exist within one or few screen distance (considering 80 lines as a single screen) most likely it is maintained by the same developer or one has the knowledge of existence of the clone. But after few screen of distance it is almost same. For example 20 screen distance has the same effect as 200 screen distance. So these values are normalized to a scale between 0 and 1 where few lines of distance is considered as 0 and beyond 200 lines of distance is considered as 1. Number of lines between these two are normalized to value between 0 and 1. Another feature we have considered whether clones exist in the same file or in some different file. This step is done completely automatic and merged with other features for generating arff by the script.
-\textbf{\item Minimize the number of classes}
-
+\textbf{\item Minimize the number of classes}\\
 In the original data, there are 5 classes based on the severity of the harmfulness. With that number of classification and lower number of training made the the model suffer. So we have reduced the number of classification to 2 from 5. But the boundary between these two was flexible and we tried with different segmentation of the original class. This is important since the requirement of the software project can determine whether they will only look for certain bugs or close smell is as important as bugs.
-\textbf{\item Try with different machine learning techniques}
-
+\textbf{\item Try with different machine learning techniques}\\
 To determine the best algorithm without suffering from overfitting we tried with several algorithms. Since there are hardly any data point with more than one syntax feature and distance and cross file are completely independent of code, we can assume features are conditionally independent. we tried with Naive Bayes, SVM, and Neural Network for classification.
-\textbf{\item Effectiveness Testing}
-
+\textbf{\item Effectiveness Testing}\\
 Since we have very limited number of data, we have applied 10-fold operation in weka to both train and test on the same set of data. Each data item has only one or two feature related code semantic and most likely conditionally independent of each other. We have tried with Naive Bayes, SVM, and Neural Network to see the effectiveness in detecting
 
 \end{enumerate}
