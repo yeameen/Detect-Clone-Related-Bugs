@@ -207,6 +207,9 @@ public class ArffUtil {
             System.err.println("UNEXPECTED CASE: codes and changes are of different size");
         }
 
+        //only for property 19
+        String[] values = {"CHECK", "ENSURE", "FAIL", "SUCCESS", "TRUE", "FALSE", "ASSERTION"};
+
 
         //we extract changes from the changed lines
         String changeSeq;
@@ -214,6 +217,8 @@ public class ArffUtil {
         Vector<String> codeChanges;
         for(int i = 0 ; i < codes.size(); i++)
         {
+            System.out.println(codes.get(i));
+            System.out.println(changes.get(i));
             //for each changes
             codeChanges = new Vector<String>();
 
@@ -248,6 +253,18 @@ public class ArffUtil {
                 {
                     addValueToDiffpropertiesInCloneProperties(cloneProperties,7);
                 }
+//                if(codeSeq.contains("new"))      try to cover properties 10, but might be dangerous
+//                {
+//                   addValueToDiffpropertiesInCloneProperties(cloneProperties, 10);
+//                }
+                if(codeSeq.contains("sizeOf"))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,17);
+                }
+                if(contains(codeSeq, values))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,19);
+                }
 
                 Iterator<String> iterator = codeChanges.iterator();
                 //apply filter to each changed "words"
@@ -255,7 +272,7 @@ public class ArffUtil {
                 {
                     String changedCode = iterator.next();
 
-                    if(changedCode.contains("return"))  // introduction of new return
+                    if(changedCode.contains("return") || changedCode.contains("break") || changedCode.contains("continue"))  // introduction of new return , continue or break (originally 21, but merged)
                     {
                         addValueToDiffpropertiesInCloneProperties(cloneProperties,2);
                     }
@@ -276,7 +293,7 @@ public class ArffUtil {
                     {
                         addValueToDiffpropertiesInCloneProperties(cloneProperties,3);
                     }
-                    if(changedCode.contains("if")   || changedCode.contains("for")   || changedCode.contains("while")  )
+                    if(changedCode.contains("if")   || changedCode.contains("for")   || changedCode.contains("while"))
                     {
                         addValueToDiffpropertiesInCloneProperties(cloneProperties,15);
                     }
@@ -304,7 +321,27 @@ public class ArffUtil {
        {
            return;
        }
-        cloneProperties.getDiffProperties().add(6);
+        cloneProperties.getDiffProperties().add(value);
+    }
+
+    //utility function
+
+    /**
+     *
+     * @param string main string to compare against values
+     * @param values array of string that contains strings to be compared to
+     */
+    private static boolean contains(String string, String[] values)
+    {
+        int len = values.length;
+        for(int i = 0; i < len ; ++i)
+        {
+            if(string.contains(values[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
