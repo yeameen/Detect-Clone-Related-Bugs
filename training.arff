@@ -1,0 +1,113 @@
+@RELATION BugFind
+
+@ATTRIBUTE	"0 Change in number of conditions"	integer
+@ATTRIBUTE	"1 new return"	integer
+@ATTRIBUTE	"2 inversion of condition"	integer
+@ATTRIBUTE	"3 Calling a function"	integer
+@ATTRIBUTE	"4 Calling a function with pointer"	integer
+@ATTRIBUTE	"5 Calling a resource allocation/release function"	integer
+@ATTRIBUTE	"6 Change in return statement"	integer
+@ATTRIBUTE	"7 Introduction of variable definition"	integer
+@ATTRIBUTE	"8 Introduction of new def-clear path"	integer
+@ATTRIBUTE	"9 Different Constructor usage"	integer
+@ATTRIBUTE	"10 Diff contains a logical operator"	integer
+@ATTRIBUTE	"11 Change in Condition"	integer
+@ATTRIBUTE	"12 Change in Counter for loops and its usage"	integer
+@ATTRIBUTE	"13 Change in function params"	integer
+@ATTRIBUTE	"14 Introduction of Branch"	integer
+@ATTRIBUTE	"15 Introduction of Empty Branch"	integer
+@ATTRIBUTE	"16 Introduction of function sizeOf "	integer
+@ATTRIBUTE	"17 Change of variable type"	integer
+@ATTRIBUTE	"18 Adding MACRO with name (CHECK, ENSURE, FAIL, SUCCESS, TRUE, FALSE, ASSERTION)"	integer
+@ATTRIBUTE	"19 Line Reordering"	integer
+@ATTRIBUTE	"20 new break/continue"	integer
+@ATTRIBUTE	"21 Variable assignment"	integer
+@ATTRIBUTE	"22 Change in expression"	integer
+@ATTRIBUTE	class	{BUG, FALSE}
+
+@DATA
+{0 1,17 1,23 FALSE}
+{1 1,2 1,23 FALSE}
+{3 1,4 1,23 BUG}
+{6 1,23 BUG}
+{13 1,23 FALSE}
+{14 1,23 BUG}
+{0 1,23 BUG}
+{8 1,23 BUG}
+{1 1,13 1,20 1,23 FALSE}
+{17 1,23 FALSE}
+{0 1,21 1,23 BUG}
+{21 1,23 FALSE}
+{21 1,23 FALSE}
+{14 1,23 BUG}
+{22 1,23 FALSE}
+{21 1,23 FALSE}
+{3 1,23 BUG}
+{3 1,7 1,14 1,23 BUG}
+{3 1,23 BUG}
+{3 1,23 BUG}
+{13 1,23 FALSE}
+{3 1,23 FALSE}
+{1 1,7 1,23 FALSE}
+{11 1,18 1,23 BUG}
+{7 1,23 BUG}
+{0 1,10 1,23 BUG}
+{7 1,13 1,18 1,23 FALSE}
+{7 1,11 1,23 FALSE}
+{1 1,14 1,23 BUG}
+{19 1,23 FALSE}
+{3 1,13 1,23 BUG}
+{0 1,10 1,18 1,23 BUG}
+{6 1,23 BUG}
+{1 1,14 1,23 BUG}
+{7 1,23 FALSE}
+{7 1,23 BUG}
+{7 1,23 FALSE}
+{7 1,23 BUG}
+{7 1,23 FALSE}
+{12 1,23 FALSE}
+{7 1,8 1,18 1,23 BUG}
+{12 1,23 FALSE}
+{7 1,13 1,23 FALSE}
+{7 1,23 FALSE}
+{0 1,23 FALSE}
+{15 1,23 BUG}
+{1 1,5 1,10 1,11 1,14 1,23 BUG}
+{10 1,13 1,23 FALSE}
+{1 1,23 BUG}
+{3 1,18 1,23 BUG}
+{13 1,23 FALSE}
+{1 1,2 1,14 1,23 BUG}
+{10 1,11 1,23 BUG}
+{7 1,8 1,23 FALSE}
+{13 1,18 1,23 FALSE}
+{7 1,8 1,23 BUG}
+{3 1,7 1,8 1,18 1,23 BUG}
+{9 1,13 1,23 FALSE}
+{4 1,7 1,23 FALSE}
+{16 1,17 1,23 FALSE}
+{0 1,23 BUG}
+{0 1,4 1,10 1,11 1,23 FALSE}
+{4 1,11 1,23 FALSE}
+{0 1,10 1,23 BUG}
+{7 1,23 FALSE}
+{4 1,5 1,23 FALSE}
+{4 1,5 1,8 1,13 1,23 FALSE}
+{7 1,23 FALSE}
+{10 1,11 1,23 FALSE}
+{7 1,23 BUG}
+{7 1,8 1,23 FALSE}
+{5 1,14 1,23 BUG}
+{4 1,5 1,23 FALSE}
+{1 1,23 FALSE}
+{0 1,10 1,23 BUG}
+{13 1,23 FALSE}
+{12 1,23 FALSE}
+{10 1,11 1,23 FALSE}
+{11 1,23 FALSE}
+{4 1,23 BUG}
+{10 1,23 BUG}
+{9 1,23 FALSE}
+{8 1,23 BUG}
+{7 1,23 BUG}
+{0 1,10 1,23 FALSE}

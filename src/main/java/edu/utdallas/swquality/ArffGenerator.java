@@ -67,29 +67,39 @@ public class ArffGenerator {
 
             writer.write(HEADING_DATA);
             writer.write(SPACE_NEWLINE);
+
+            StringBuffer sb;
             for (Integer cloneNumber : examples.keySet()) {
-                writer.write(DATA_BEGINNING);
+                sb = new StringBuffer();
+
+                sb.append(DATA_BEGINNING);
 
                 CloneProperties cloneProperties = examples.get(cloneNumber);
                 for (Integer featureNumber : cloneProperties.getDiffProperties()) {
-                    writer.write(featureNumber + " 1,");
+                    sb.append(featureNumber + " 1,");
                 }
 
-                writer.write(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
-                writer.write(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
+                sb.append(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
+                sb.append(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
 
                 // write classification
                 String classification = cloneProperties.getCategory().toString();
+                boolean defined = false;
                 for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
                     Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
                     if(classes.contains(classification)) {
-                        writer.write(classificationIndex+2 + " " + name.toUpperCase());
+                        sb.append(classificationIndex+2 + " " + name.toUpperCase());
+                        defined = true;
+                        break;
                     }
                 }
+                if(!defined) {
+                    continue;
+                }
 
-
-                writer.write(DATA_ENDING);
-                writer.write(SPACE_NEWLINE);
+                sb.append(DATA_ENDING);
+                sb.append(SPACE_NEWLINE);
+                writer.write(sb.toString());
             }
 
             writer.close();

@@ -2,17 +2,13 @@ conservative:
   "BUG": [BUG]
   "FALSE": [SMELL, STYLE, CHECK, "FALSE"]
 
-medium:
+bug_smell:
   "BUG": [BUG, SMELL]
   "FALSE": [STYLE, CHECK, "FALSE"]
 
 false_priority:
   "HARMFUL": [BUG, SMELL, STYLE, CHECK]
   "FALSE": ["FALSE"]
-
-bug_n_check:
-  "BUG": [BUG, CHECK]
-  "FALSE": [STYLE, SMELL, "FALSE"]
 
 bug_check_smell:
   "HARMFUL": [BUG, CHECK, SMELL]
@@ -21,3 +17,20 @@ bug_check_smell:
 bug_check_style:
   "HARMFUL": ["BUG", "CHECK", "STYLE"]
   "BENIGN":  ["SMELL", "FALSE"]
+
+bug_check:
+  "HARMFUL": [BUG, CHECK]
+  "FALSE": [STYLE, SMELL, "FALSE"]
+
+ternary:
+  "BUG": [BUG, CHECK]
+  "STYLE": [SMELL, STYLE]
+  "BENIGN" : ["FALSE"]
+
+selective:
+  "BUG": [BUG, CHECK]
+  "BENIGN" : ["FALSE"]
+
+selective_with_style:
+  "BUG": [BUG, CHECK]
+  "BENIGN" : [STYLE, "FALSE"]
