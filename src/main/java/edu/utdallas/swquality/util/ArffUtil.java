@@ -7,10 +7,7 @@ import edu.utdallas.swquality.CloneProperties;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Utility functions for generating arff file
@@ -210,12 +207,104 @@ public class ArffUtil {
             System.err.println("UNEXPECTED CASE: codes and changes are of different size");
         }
 
+
+        //we extract changes from the changed lines
+        String changeSeq;
+        String codeSeq;
+        Vector<String> codeChanges;
         for(int i = 0 ; i < codes.size(); i++)
         {
-            System.out.println(codes.get(i));
-            System.out.println(changes.get(i));
-        }
+            //for each changes
+            codeChanges = new Vector<String>();
 
+            changeSeq = changes.get(i);
+            codeSeq = codes.get(i);
+            if(changeSeq.length() > 0)
+            {
+                String changed = "";
+                for(int j = 0 ; j < changeSeq.length(); ++j)
+                {
+                    char changeChar = changeSeq.charAt(j);
+                    if(changeChar == '-' || changeChar == '^')
+                    {
+                       changed += codeSeq.charAt(j) ;
+                    }
+                    else
+                    {
+                        if(!changed.equals(""))
+                        {
+                            codeChanges.add(changed);
+                        }
+                        changed = "";
+                    }
+                }
+                if(!changed.equals(""))
+                {
+                    codeChanges.add(changed);
+                }
+
+                //first apply easy filters that can be found only by examining changed segments,
+                if(codeSeq.contains("return")   && !codeChanges.contains("return"))
+                {
+                    addValueToDiffpropertiesInCloneProperties(cloneProperties,7);
+                }
+
+                Iterator<String> iterator = codeChanges.iterator();
+                //apply filter to each changed "words"
+                while(iterator.hasNext())
+                {
+                    String changedCode = iterator.next();
+
+                    if(changedCode.contains("return"))  // introduction of new return
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,2);
+                    }
+                    if(changedCode.contains("&&")   || changedCode.contains("||")  ) //if change contains && or || which means it probably contain
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,1);
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,12); // and it will also be change in condition
+                    }
+                    if(changedCode.contains("==")  ) //adding more check for change in logical operator
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,12); // and it will also be change in condition
+                    }
+                    else if(codeSeq.contains("=")  ) // if an assignment is found
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,8); // and it will also be change in condition
+                    }
+                    if(changedCode.contains("!")   && changedCode.contains("(") && changedCode.contains(")")) //inversion
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,3);
+                    }
+                    if(changedCode.contains("if")   || changedCode.contains("for")   || changedCode.contains("while")  )
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,15);
+                    }
+                    //else for that '(' will not be part of if-statement or for-statement, but of function...
+                    else if(changedCode.contains("(")   || codeSeq.contains(changedCode + "(")  )//if the change itself is function or just functionname changed
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,4);
+                    }
+                    if(changedCode.contains("->")  ) //if it is pointer function call,
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,5);
+                    }
+                    if(changedCode.contains("NS_RELEASE")   || changedCode.contains("free")    || changedCode.contains("NS_Free")   ) //if it is resource allocation/release function
+                    {
+                        addValueToDiffpropertiesInCloneProperties(cloneProperties,6);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void addValueToDiffpropertiesInCloneProperties(CloneProperties cloneProperties, int value)
+    {
+       if(cloneProperties.getDiffProperties().contains(value))
+       {
+           return;
+       }
+        cloneProperties.getDiffProperties().add(6);
     }
 
 }
