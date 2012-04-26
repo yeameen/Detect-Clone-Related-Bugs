@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  26 APR 2012 04:08
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  26 APR 2012 15:17
 entering extended mode
  %&-line parsing enabled.
 **machine_learning_report.tex
@@ -133,18 +133,18 @@ File: babel.def 2008/07/06 v3.8l Babel common definitions
 (./machine_learning_report.aux)
 \openout1 = `machine_learning_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -174,7 +174,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-<buggy_origin.png, id=10, 1325.95375pt x 715.67375pt>
+<buggy_origin.png, id=11, 1325.95375pt x 715.67375pt>
 File: buggy_origin.png Graphic file (type png)
  <use buggy_origin.png>
 Missing character: There is no â in font cmr10!
@@ -187,8 +187,7 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-[2 <./buggy_origin.png (PNG copy)>]
-<buggy_fixed.png, id=14, 1340.00626pt x 713.66624pt>
+<buggy_fixed.png, id=12, 1340.00626pt x 713.66624pt>
 File: buggy_fixed.png Graphic file (type png)
  <use buggy_fixed.png>
 Missing character: There is no â in font cmr10!
@@ -198,88 +197,102 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 
-[3 <./buggy_fixed.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 92.
+[2] [3 <./buggy_origin.png (PNG copy)> <./buggy_fixed.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 95.
 
 (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 92.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
  [4]
-Underfull \hbox (badness 10000) in paragraph at lines 104--107
+Underfull \hbox (badness 10000) in paragraph at lines 107--110
 
  []
 
 
-Overfull \hbox (23.87367pt too wide) in paragraph at lines 123--123
+Overfull \hbox (23.87367pt too wide) in paragraph at lines 126--126
 []\OT1/cmr/m/n/10.95 G=0.2| 
  []
 
 
-Overfull \hbox (44.8612pt too wide) in paragraph at lines 125--125
+Overfull \hbox (44.8612pt too wide) in paragraph at lines 128--128
 []\OT1/cmr/m/n/10.95 G=.2,I=30| 
  []
 
 
-Overfull \hbox (44.8612pt too wide) in paragraph at lines 127--127
+Overfull \hbox (44.8612pt too wide) in paragraph at lines 130--130
 []\OT1/cmr/m/n/10.95 G=.2,I=30| 
  []
 
 
-Overfull \hbox (16.19344pt too wide) in paragraph at lines 131--131
+Overfull \hbox (16.19344pt too wide) in paragraph at lines 134--134
 []\OT1/cmr/m/n/10.95 I=30| 
  []
 
 
-Overfull \hbox (11.44328pt too wide) in alignment at lines 110--133
+Underfull \hbox (badness 10000) in alignment at lines 113--136
 [][][][][][][][][][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--147
+Overfull \hbox (11.741pt too wide) in paragraph at lines 113--137
+ [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--150
 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 150--164
+Underfull \hbox (badness 10000) in alignment at lines 153--179
 [][][][][][][][][][]
+ []
+
+
+Overfull \hbox (21.1381pt too wide) in paragraph at lines 153--180
+ [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 174--178
+Underfull \hbox (badness 10000) in paragraph at lines 189--193
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in alignment at lines 181--195
+Underfull \hbox (badness 10000) in alignment at lines 196--210
 [][][][][][][][][][]
  []
 
-[6] (./machine_learning_report.aux) ) 
+[6] (./machine_learning_report.bbl [7]) [8] (./machine_learning_report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1894 strings out of 495061
- 23046 string characters out of 1182621
- 87001 words of memory out of 3000000
- 5075 multiletter control sequences out of 15000+50000
+ 1903 strings out of 495061
+ 23169 string characters out of 1182621
+ 90956 words of memory out of 3000000
+ 5081 multiletter control sequences out of 15000+50000
  10525 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 27i,9n,20p,1180b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmcsc10
-.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-t
-exlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmtt12.pfb>
-Output written on machine_learning_report.pdf (6 pages, 316213 bytes).
+ 27i,9n,20p,1262b,236s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on machine_learning_report.pdf (8 pages, 329171 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
+ 71 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,6 +4,9 @@
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage[english]{babel}
+%\usepackage{citeref}
+%\renewcommand{\bibitempages}[1]{}
+
 \title{Machine Learning Model for Detecting \\Clone Related Bugs}
 \author{Chowdhury Ashabul Yeameen\\
 \texttt{cxy111130@utdallas.edu}}
@@ -17,13 +20,13 @@
 Though duplicate code are sometimes considered as the replication of tested code, they can also lead to a difficult to maintain codebase because there are multiple places to update for single modification. Failed to update all the places, which is very common, results in inconsistent clones. Sometimes asymmetric modifications happen just because that part needed some added/modified functionality. But many other times those changes are intended to fix a bug in it. And since the link between clones are usually not maintained, that modification does not propagates and that particular bug remains alive on its clone(s).
 
 \vspace{10 pt}
-Intentional code cloning, otherwise known as copy/paste of codes, is considered as bad practice in Software Engineering. But sometimes there are no alternatives other than cloning when some code is used as a template or sequence of function call is necessary for achieving some functionality. Example of these cases are hardware drivers where people use some kind of template to start with and resource allocation/deallocation methods which are used sequentially and repeated over and over in many places in a software code. Some recent studies found its unavoidable as clone code exist in all major large scale software[1][5][7]. The study by Kamiya et al[7] found that 12 percent of Linux code was actually duplicate whereas Baker[7] showed 19 percent of X Window System showed the sign of duplications. A study of code clone genealogy[2] showed even active refactoring followed by many agile methodologies is not enough to remove all the clone codes.
+Intentional code cloning, otherwise known as copy/paste of codes, is considered as bad practice in Software Engineering. But sometimes there are no alternatives other than cloning when some code is used as a template or sequence of function call is necessary for achieving some functionality. Example of these cases are hardware drivers where people use some kind of template to start with and resource allocation/deallocation methods which are used sequentially and repeated over and over in many places in a software code. Some recent studies found its unavoidable as clone code exist in all major large scale software~\cite{Li2006, Kamiya2002,Baker1995}. The study by \emph{Kamiya et al.}~\cite{Kamiya2002} found that 12 percent of Linux code was actually duplicate whereas \emph{Baker et al.}~\cite{Baker1995} showed 19 percent of X Window System showed the sign of duplications. A study of \emph{Code Clone Genealogy}~\cite{Kim2005} showed even active refactoring followed by many agile methodologies is not enough to remove all the clone codes.
 
 \vspace{10 pt}
-There are many techniques for suggested for detecting exact and near match code clones. I. Maxter et al[3] and Lingxiao Jiang et al[4] used Abstract Syntax Tree, Zhenmin Li et al [5] used frequent subsequence mining of tokens whereas Kamiya et al[5] used sequence of tokens for detecting code clones. 
+There are many techniques for suggested for detecting exact and near match code clones. \emph{I. Baxter et al.}~\cite{Baxter1998} and \emph{Lingxiao Jiang et al.}~\cite{Jiang2007} used Abstract Syntax Tree, Zhenmin Li et al [5] used frequent subsequence mining of tokens whereas \emph{Kamiya et al.}~\cite{Kamiya2002} used sequence of tokens for detecting code clones. 
 
 \vspace{10 pt}
-There are some recent researches on detecting clone related bugs. But all of these approaches are based on some heuristics and/or rule based techniques. Deckard[4] considers difference of contexts in the clones whereas PR-Miner[8] considers anomalies in code duplicates as a sign of bug. The study by Dawson Engler et al[9] goes even further to find anomaly in frequently used template code as a sign of bug and come up with decent accuracy, and more importantly, ranking of possibility of those bugs in OpenBSD code base. Mark Gabel et al[10]proposed a scalable tool DejaVu to detect bug in a 75+ million lines of code base and got 30 percent accuracy. Though applying many such heuristics and relaxed matching improve recall, all the techniques heavily suffers from accuracy or recall. We took off where other methods left off - get near match clones by using existing techniques, extract features, and apply machine learning techniques to improve accuracy. After applying machine learning technique, accuracy improved more than 2-fold to any existing work with up-to $80\%$ on the sample case of finding bug in Firefox codebase.
+There are some recent researches on detecting clone related bugs. But all of these approaches are based on some heuristics and/or rule based techniques. \emph{Deckard}~\cite{Jiang2007} considers difference of contexts in the clones whereas \emph{PR-Miner}~\cite{Li2005} considers anomalies in code duplicates as a sign of bug. The study by \emph{Dawson Engler et al}~\cite{Engler2001} goes even further to find anomaly in frequently used template code as a sign of bug and come up with decent accuracy, and more importantly, ranking of possibility of those bugs in OpenBSD code base. \emph{Mark Gabel et al.}~\cite{Gabel2010} proposed a scalable tool DejaVu to detect bug in a 75+ million lines of code base and got 30 percent accuracy. Though applying many such heuristics and relaxed matching improve recall, all the techniques heavily suffers from accuracy or recall. We took off where other methods left off - get near match clones by using existing techniques, extract features, and apply machine learning techniques to improve accuracy. After applying machine learning technique, accuracy improved more than 2-fold to any existing work with over $80\%$ on the sample case of finding bug in Firefox codebase.
 
 \section{Problem Definition and System Overview}
 \subsection{Task Definition}
@@ -107,7 +110,7 @@ These five different classes are reduced to two classes by our script. We choose
 
 \begin{table}[h!]
 \centering
-\begin{tabular*}{1\textwidth}{|c|c| p{.1in} |c|c|c|c|c|c|c|}
+\begin{tabular*}{1.025\textwidth}{|c|c| p{.1in} |c|c|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & 
 \multicolumn{1}{|c|}{\multirow{2}{*}{Meta}} & 
@@ -147,7 +150,7 @@ Both Bugs and Checks are highly probably code bug where Smells may lead to intro
 
 \begin{table}[h!]
 \centering
-\begin{tabular*}{.977\textwidth}{|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular*}{1.045\textwidth}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & 
 \multicolumn{1}{|c|}{\multirow{2}{*}{Meta}} & 
@@ -159,7 +162,19 @@ Both Bugs and Checks are highly probably code bug where Smells may lead to intro
 
 & & & Correct & Missed & Recall & Correct & Missed & Recall & \\
 \hline
-SVM & & G=0.2 & 92 & 4 & 95.8\% & 8 & 26 & 23.5\% & 76.92\% \\
+NB &  &  & 98 & 8 & 92.5\% & 17 & 7 & 70.8\% & 88.46\% \\ 
+\hline 
+NB & AdaBoost & I=30,P=100 & 98 & 8 & 92.5\% & 16 & 8 & 66.7\% & 87.69\%\\ 
+\hline 
+NB & AdaBoost & I=30,P=50 & 98 & 8 & 92.5\% & 18 & 6 & 75\% & 89.23\% \\ 
+\hline 
+SVM &  & G=.2 & 106 & 0 & 100\% & 7 & 17 & 29.2\% & 86.92\%\\ 
+\hline 
+SVM & AdaBoost & G=.2,I=30 & 100 & 6 & 94.3\% & 15 & 9 & 62.5\% & 88.46\%\\ 
+\hline 
+SVM & AdaBoost & G=.2,P=50 & 100 & 6 & 94.3\% & 16 & 8 & 66.7\% & 89.23\%\\ 
+\hline 
+SVM & Bagging & I=10 & 105 & 1 & 99.1\% & 9 & 15 & 37.5\% & 87.7\%\\
 \hline
 \end{tabular*}
 \caption{Effectiveness on Reducing False Cases}
@@ -190,7 +205,7 @@ In this case Style is added to Harmful class which may not add much value but ve
 
 & & & Correct & Missed & Recall & Correct & Missed & Recall & \\
 \hline
-SVM & & G=0.2 & 92 & 4 & 95.8\% & 8 & 26 & 23.5\% & 76.92\% \\
+NB & & & 65 & 5 & 92.9\% & 21 & 3 & 87.5\% & 91.49\% \\
 \hline
 \end{tabular*}
 \caption{Effectiveness on Selective Classification}
@@ -201,30 +216,34 @@ SVM & & G=0.2 & 92 & 4 & 95.8\% & 8 & 26 & 23.5\% & 76.92\% \\
 \noindent
 This dataset selectively considers only three original classification: Bug, Check in one side and False on other. Other two classes, Smell and Style are discarded while building the dataset.
 
-
+\noindent
 Bug and Check shows some very strong sign of bug and need to address as soon as possible where other cases can be easily ignored for the time being. This classification may not be practical since we are not taking two whole class of data which is not possible to do automatically. Still one test case is given here just to show how effective the model is to detect Buggy cases
 
+\subsection{Discussion}
+Our goal for this project was not only to increase classification accuracy, but to reduce the number of false positive in detecting clone related bugs. We started with a maximum accurate data and applied our method to reduce false positive cases. We are able to show promising output in retaining above 90\% of Harmful cases while reducing benign data points significantly. We are hopeful that larger set of labeled data and little more relaxed input will yield even higher output.
+
+\section{Threat to Validity}
+One big threat to our work is we included smell and some other bad practices together with real bugs in our classification which may not be the goal of bug finding. But our dataset is so small that classifying detected real bug may not produce any dependable model. Again finding Check and Smell is also important in most of the projects where developers try to eliminate those as early as possible before going to production. Our model did significantly good in reducing the number of cases developers need to check. In other words, this will refine the result of existing method with very high certainty of finding bad code.
+
+\vspace{10pt}
+\noindent
+Another threat can be the specific dataset we have chosen to use. We admit that we worked on a single project and a very small dataset. But here we just wanted to emphasis on our goal that even better result can be produced by applying machine learning along with other bug detection techniques. And larger and wide variety of project dataset are suppose to increase the chance to learn more and work better rather than decreasing accuracy.
+
 \section{Future Work}
+Possibly the most important task is to automate feature extraction from clone data. So far we have done this manually because without getting enough lexical information we cannot do this automatically. Getting lexical information will not be a big problem and we are hoping to come up with a complete automated feature extractor in our next work.
+
+\vspace{10pt}
+\noindent 
+The very next important step is to try on a bigger dataset. We already produced a large set of nearly identical clones by using DECKARD on latest linux kernel 3.4rc4. But verifying the data will take a lot of effort and even we cannot confirm a bug by ourselves without the approval of the project developers.
+
+\vspace{10pt}
+\noindent
+After training with larger set of data we may do a study on the kind of semantic changes show the sign of bug fixing. We may come up with a tool that can automatically detect the changes related to bug fix even when that are not annotated/linked with a corresponding issue and warn the developers before checking in their code.
 
 \section{Conclusion}
+Discovering software bug automatically is a highly researched area. Even after a lot of effort in writing test cases it is nearly impossible to verify a software as completely free of bugs. Also high false positive keeps developers away from many of the automatic bug detection techniques. We choose a particular field of automatic bug detection and showed a significant improvement can be made by using machine learning technique on important extracted features. Moreover, the process will be completely automatic and promise to save developers$'$ time to find out the bug.
 
-\begin{thebibliography}{9}
-
-	\bibitem[Marinescu and Dechter, 2005]{marinescu05}
-	   Radu Marinescu and Rina Dechter
-	  \emph{	AND/OR branch-and-bound for graphical models}.
-	  International Joint Conference on Artificial Intelligence (IJCAI), 2005.
-
-	\bibitem[Sang and Kautz, 2007]{sang07}
-	  Tian Sang, Paul Beame, and Henry Kautz,
-	  \emph{A Dynamic Approach to MPE and Weighted MAX-SAT}.
-	  Proceedings of the 20th International Joint Conference on Artificial Intelligence (IJCAI), 2007.
-
-	\bibitem[Gogate and Domingos, 2010]{gogate10}
-	  Vibhav Gogate and Pedro Domingos,
-	  \emph{Formula-Based Probabilistic Inference}.
-	  26th Conference on Uncertainty in Artificial Intelligence (UAI), 2010.
-
-\end{thebibliography}
+\bibliographystyle{abbrv}
+\bibliography{machine_learning_bib}
 
 \end{document}
