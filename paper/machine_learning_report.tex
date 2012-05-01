@@ -1,38 +1,50 @@
-\documentclass[11pt]{article}
-\usepackage{fullpage}
+\documentclass[nocopyrightspace]{sigplanconf}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{multirow}
 \usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{booktabs}
 
-\title{Machine Learning Model for Detecting \\Clone Related Bugs}
-\author{Chowdhury Ashabul Yeameen\\
-\texttt{cxy111130@utdallas.edu}}
+
+\title{Machine Learning Model for Detecting \\Code Clone Related Bugs}
+
+\authorinfo{Chowdhury Ashabul Yeameen}
+           {The University of Texas, Dallas}
+           {cxy111130@utdallas.edu}
+           
+\authorinfo{Seungtak Baek}
+		   {The University of Texas, Dallas}
+		   {sxb085000@utdallas.edu}
+
 \date{}
 
 \begin{document}
 
 \maketitle
+
+\begin{abstract}
+Though intentionally copy-pasted code, aka clone code, are sometimes considered as the replication of tested code, they can also lead to a difficult to maintain codebase because there are multiple places to update for single modification. Failed to update all the places, which is very common, results in inconsistent clones. Sometimes asymmetric modifications happen just because that part needed some added/modified functionality. But many other times those changes are intended to fix a bug in it. And since the link between clones are usually not maintained, that modification does not propagates and that particular bug remains alive on its clone(s).
+\end{abstract}
 			
 \section{Introduction}
-Though duplicate code are sometimes considered as the replication of tested code, they can also lead to a difficult to maintain codebase because there are multiple places to update for single modification. Failed to update all the places, which is very common, results in inconsistent clones. Sometimes asymmetric modifications happen just because that part needed some added/modified functionality. But many other times those changes are intended to fix a bug in it. And since the link between clones are usually not maintained, that modification does not propagates and that particular bug remains alive on its clone(s).
 
 \vspace{10 pt}
-Intentional code cloning, otherwise known as copy/paste of codes, is considered as bad practice in Software Engineering. But sometimes there are no alternatives other than cloning when some code is used as a template or sequence of function call is necessary for achieving some functionality. Example of these cases are hardware drivers where people use some kind of template to start with and resource allocation/deallocation methods which are used sequentially and repeated over and over in many places in a software code. Some recent studies found its unavoidable as clone code exist in all major large scale software~\cite{Li2006, Kamiya2002,Baker1995}. The study by \emph{Kamiya et al.}~\cite{Kamiya2002} found that 12 percent of Linux code was actually duplicate whereas \emph{Baker et al.}~\cite{Baker1995} showed 19 percent of X Window System showed the sign of duplications. A study of \emph{Code Clone Genealogy}~\cite{Kim2005} showed even active refactoring followed by many agile methodologies is not enough to remove all the clone codes.
+Intentional code cloning, otherwise known as copy-paste of codes, is considered as a bad practice in Software Engineering. But sometimes there are no alternatives other than cloning when some code is used as a template or sequence of function call is necessary for achieving some functionality. Example of these cases are hardware drivers where people use some kind of template to start with and resource allocation/deallocation methods which are used sequentially and repeated over and over in many places in a software code. Some recent studies found its unavoidable as clone code exist in all major large scale software~\cite{Li2006, Kamiya2002,Baker1995}. The study by \emph{Kamiya et al.}~\cite{Kamiya2002} found that 12 percent of Linux code was actually duplicate whereas \emph{Baker et al.}~\cite{Baker1995} showed 19 percent of X Window System showed the sign of duplications. A study of \emph{Code Clone Genealogy}~\cite{Kim2005} showed even active refactoring followed by many agile methodologies is not enough to remove all the clone codes.
 
 \vspace{10 pt}
 There are many techniques for suggested for detecting exact and near match code clones. \emph{I. Baxter et al.}~\cite{Baxter1998} and \emph{Lingxiao Jiang et al.}~\cite{Jiang2007} used Abstract Syntax Tree, Zhenmin Li et al [5] used frequent subsequence mining of tokens whereas \emph{Kamiya et al.}~\cite{Kamiya2002} used sequence of tokens for detecting code clones. 
 
 \vspace{10 pt}
-There are some recent researches on detecting clone related bugs. But all of these approaches are based on some heuristics and/or rule based techniques. \emph{Deckard}~\cite{Jiang2007} considers difference of contexts in the clones whereas \emph{PR-Miner}~\cite{Li2005} considers anomalies in code duplicates as a sign of bug. The study by \emph{Dawson Engler et al}~\cite{Engler2001} goes even further to find anomaly in frequently used template code as a sign of bug and come up with decent accuracy, and more importantly, ranking of possibility of those bugs in OpenBSD code base. \emph{Mark Gabel et al.}~\cite{Gabel2010} proposed a scalable tool DejaVu to detect bug in a 75+ million lines of code base and got 30 percent accuracy. Though applying many such heuristics and relaxed matching improve recall, all the techniques heavily suffers from accuracy or recall. We took off where other methods left off - get near match clones by using existing techniques, extract features, and apply machine learning techniques to improve accuracy. After applying machine learning technique, accuracy improved more than 2-fold to any existing work with over $80\%$ on the sample case of finding bug in Firefox codebase.
+There are some recent researches on detecting clone related bugs. But all of these approaches are based on some heuristics and/or rule based techniques. \emph{Deckard}~\cite{Jiang2007} considers difference of contexts in the clones. The study by \emph{Dawson Engler et al}~\cite{Engler2001} goes even further to find anomaly in frequently used template code as a sign of bug and come up with decent accuracy, and more importantly, ranking of possibility of those bugs in OpenBSD code base. \emph{Mark Gabel et al.}~\cite{Gabel2010} proposed a scalable tool \emph{DejaVu}, an independent and extended implementation of \emph{DECKARD} to detect bug in a 75+ million lines of code base and achieved 30 percent accuracy. Though applying many such heuristics and relaxed matching improve recall, all the techniques heavily suffers from accuracy or recall. We took off where other methods left off - get near match clones by using existing techniques, extract features, and apply machine learning techniques to improve accuracy. After applying machine learning technique, accuracy improved more than 2-fold to any existing work with over $80\%$ on the sample case of finding bug in Firefox codebase.
 
 \section{Problem Definition and System Overview}
 \subsection{Task Definition}
-The goal of this project is to build a effective machine learning model to detect harmful code in software by observing nearly identical code clones. The bug type doesn’t include the sign of bad practices due to intentional copy/paste; there are lot of tools available for that purpose. And the model works only on clone pairs when one is slightly modified and not propagated to other one. It can detect two specific types of bugs:
+The goal of this project is to build a effective machine learning model to detect harmful code in software by observing nearly identical code clones. The bug type does not include the sign of bad practices due to intentional copy/paste; there are lot of tools available for that purpose. And the model works only on clone pairs when one is slightly modified and not propagated to other one. It can detect two specific types of bugs:
 
 \begin{enumerate}
 \item When there was a bug in intentionally copy/pasted code clone and one copy got the fix but that fix didn’t propagated to other copy.
-\item A new bug introduced during copy-paste time changing of code for adopting the contextual differences from source to destination.
+\item A new bug introduced during copy-paste time while changing the code for adopting the contextual differences from source to destination.
 \end{enumerate}
 
 \vspace{10 pt}
@@ -48,7 +60,7 @@ Figure~\ref{fig:buggy} showed an example of confirmed bug detected in Mozilla Fi
 
 \vspace{10 pt}
 \noindent
-Original code duplicated and pasted in the same file about 100 lines distance. Figure~\ref{fig:fixed} shows the duplicated code. But in this part someone fixed the bug and ensured the value of ‘len’ is not zero before returning true. The original bug remained possibly because the fixer doesn’t know that there is a duplicate code.
+Original code duplicated and pasted in the same file about 100 lines distance. Figure~\ref{fig:fixed} shows the duplicated code. But in this part someone fixed the bug and ensured the value of ‘len’ is not zero before returning true. The original bug remained possibly because the fixer doesn’t know that there is a duplicate.
 
 \begin{figure*}[t!]
 \centering
@@ -68,15 +80,15 @@ Our proposed Learning method requires labeled data to work. We started with a sa
 
 \item
 \textbf{ Extract code features from the nearly match clones diff output}\\
-For this particular problem features are the semantic difference between code clones. Because of the strict control on intolerance of variance between clones, there doesn’t exist much difference between code clones. Most of the times difference is by modification of few tokens. Therefore for each data point there are generally one or two feature. One alternative approach can be considering one specific feature to multiple generalize feature. For example assigning a value to a new variable can be considered as both new def-clear path as well as variable declaration. But most cases this didn’t show any significant difference in result that's why such mapping is avoided in this project. Those features are extracted and annotated manually in an spreadsheet and later a script read that file and generated arff.
+For this particular problem features are the semantic difference between code clones. Because of the strict control on intolerance of variance between clones, there doesn’t exist much difference between code clones. Most of the times difference is by modification of few tokens. Therefore for each data point there are generally one or two feature. One alternative approach can be considering one specific feature and map to multiple generalize feature. For example assigning a value to a new variable can be considered as both new def-clear path as well as variable declaration. But most cases this didn’t show any significant difference in result that's why such mapping is avoided in this project. Those features are extracted and annotated manually in an spreadsheet and later a script read that file and generated arff.
 \textbf{\item Extract few more features like distance between code clones}\\
 If both clones exist within one or few screen distance (considering 80 lines as a single screen) most likely it is maintained by the same developer or one has the knowledge of existence of the clone. But after few screen of distance it is almost same. For example 20 screen distance has the same effect as 200 screen distance. So these values are normalized to a scale between 0 and 1 where few lines of distance is considered as 0 and beyond 200 lines of distance is considered as 1. Number of lines between these two are normalized to value between 0 and 1. Another feature we have considered whether clones exist in the same file or in some different file. This step is done completely automatic and merged with other features for generating arff by the script.
 \textbf{\item Minimize the number of classes}\\
 In the original data, there are 5 classes based on the severity of the harmfulness. With that number of classification and lower number of training made the the model suffer. So we have reduced the number of classification to 2 from 5. But the boundary between these two was flexible and we tried with different segmentation of the original class. This is important since the requirement of the software project can determine whether they will only look for certain bugs or close smell is as important as bugs.
 \textbf{\item Try with different machine learning techniques}\\
-To determine the best algorithm without suffering from overfitting we tried with several algorithms. Since there are hardly any data point with more than one syntax feature and distance and cross file are completely independent of code, we can assume features are conditionally independent. we tried with Naive Bayes, SVM, and Neural Network for classification.
+To determine the best algorithm without suffering from overfitting we tried with several algorithms. Since there are very few data point with more than one syntax feature and distance and cross file are completely independent of code, we can assume features are conditionally independent. we tried with Naive Bayes, SVM, and Neural Network for classification.
 \textbf{\item Effectiveness Testing}\\
-Since we have very limited number of data, we have applied 10-fold operation in weka to both train and test on the same set of data. Each data item has only one or two feature related code semantic and most likely conditionally independent of each other. We have tried with Naive Bayes, SVM, and Neural Network to see the effectiveness in detecting
+Since we have very limited number of data, we have applied 10-fold operation in weka to both train and test on the same set of data.
 
 \end{enumerate}
 
@@ -101,9 +113,9 @@ These five different classes are reduced to two classes by our script. We choose
 \textsc{Harmful=Bug, Check, Smell (96 cases)}\\
 \textsc{Benign=Style, False (34 cases)}\\
 
-\begin{table}[h!]
+\begin{table*}[htb!]
 \centering
-\begin{tabular*}{1.025\textwidth}{|c|c| p{.1in} |c|c|c|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|X|X|}
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & 
 \multicolumn{1}{|c|}{\multirow{2}{*}{Meta}} & 
@@ -126,10 +138,10 @@ NB & & & 83 & 13 & 86.5\% & 22 & 12 & 64.7\% & 80.77\% \\
 \hline
 NB & Bagging & I=30 & 85 & 11 & 88.5\% & 21 & 13 & 61.8\% & 81.53\% \\
 \hline
-\end{tabular*}
+\end{tabularx}
 \caption{Effectiveness on Recalling Bug, Check and Smell}
 \label{tab:dataset1}
-\end{table}
+\end{table*}
 
 
 \noindent
@@ -141,9 +153,9 @@ Both Bugs and Checks are highly probably code bug where Smells may lead to intro
 \textsc{Harmful=Bug, Check, Smell, Style (106 cases)}\\
 \textsc{Benign=False (24 cases)}\\
 
-\begin{table}[h!]
+\begin{table*}[htb!]
 \centering
-\begin{tabular*}{1.045\textwidth}{|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|X|X|}
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & 
 \multicolumn{1}{|c|}{\multirow{2}{*}{Meta}} & 
@@ -169,14 +181,14 @@ SVM & AdaBoost & G=.2,P=50 & 100 & 6 & 94.3\% & 16 & 8 & 66.7\% & 89.23\%\\
 \hline 
 SVM & Bagging & I=10 & 105 & 1 & 99.1\% & 9 & 15 & 37.5\% & 87.7\%\\
 \hline
-\end{tabular*}
+\end{tabularx}
 \caption{Effectiveness on Reducing False Cases}
 \label{tab:dataset2}
-\end{table}
+\end{table*}
 
 
 \noindent
-In this case Style is added to Harmful class which may not add much value but very high recall, particularly in one case 100\%, is probably most desirable for any software project. But this one suffers from low accuracy on detecting False cases.
+In this case Style is added to Harmful class which may not add much value but very high recall, particularly in one case we got 100\%, is probably most desirable for any software project. But this one suffers from low accuracy on detecting False cases.
 
 \vspace{10 pt}
 \noindent
@@ -184,9 +196,9 @@ In this case Style is added to Harmful class which may not add much value but ve
 \textsc{Harmful=Bug, Check (70 cases)}\\
 \textsc{Benign=False (24 cases)}\\
 
-\begin{table}[h!]
+\begin{table*}[htb!]
 \centering
-\begin{tabular*}{.977\textwidth}{|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|X|X|X|X|X|}
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Powers}} & 
 \multicolumn{1}{|c|}{\multirow{2}{*}{Meta}} & 
@@ -200,23 +212,23 @@ In this case Style is added to Harmful class which may not add much value but ve
 \hline
 NB & & & 65 & 5 & 92.9\% & 21 & 3 & 87.5\% & 91.49\% \\
 \hline
-\end{tabular*}
+\end{tabularx}
 \caption{Effectiveness on Selective Classification}
 \label{tab:dataset3}
-\end{table}
+\end{table*}
 
 
 \noindent
-This dataset selectively considers only three original classification: Bug, Check in one side and False on other. Other two classes, Smell and Style are discarded while building the dataset.
+This dataset selectively considers only three of the original classification: Bug, Check in one side and False on other. Other two classes, Smell and Style are discarded while building the dataset.
 
 \noindent
 Bug and Check shows some very strong sign of bug and need to address as soon as possible where other cases can be easily ignored for the time being. This classification may not be practical since we are not taking two whole class of data which is not possible to do automatically. Still one test case is given here just to show how effective the model is to detect Buggy cases
 
 \subsection{Discussion}
-Our goal for this project was not only to increase classification accuracy, but to reduce the number of false positive in detecting clone related bugs. We started with a maximum accurate data and applied our method to reduce false positive cases. We are able to show promising output in retaining above 90\% of Harmful cases while reducing benign data points significantly. We are hopeful that larger set of labeled data and little more relaxed input will yield even higher output.
+Our goal for this project was not only to increase classification accuracy, but to reduce the number of true negative in detecting clone related bugs. We started with a maximum accurate data and applied our method to reduce false positive cases. We are able to show promising output in retaining above 90\% of Harmful cases while reducing benign data points significantly. We are hopeful that larger set of labeled data and little more relaxed input will yield even higher output.
 
 \section{Threat to Validity}
-One big threat to our work is we included smell and some other bad practices together with real bugs in our classification which may not be the goal of bug finding. But our dataset is so small that classifying detected real bug may not produce any dependable model. Again finding Check and Smell is also important in most of the projects where developers try to eliminate those as early as possible before going to production. Our model did significantly good in reducing the number of cases developers need to check. In other words, this will refine the result of existing method with very high certainty of finding bad code.
+One big threat to our work is that we included smell and some other bad practices together with real bugs in our classification which may not be the goal of bug finding. But our dataset is so small that classifying detected real bug may not produce any dependable model. Again finding Check and Smell is also important in most of the projects where developers try to eliminate those as early as possible before going to production. Our model did significantly good in reducing the number of cases developers need to check. In other words, this will refine the result of existing method with very high certainty of finding bad code.
 
 \vspace{10pt}
 \noindent
