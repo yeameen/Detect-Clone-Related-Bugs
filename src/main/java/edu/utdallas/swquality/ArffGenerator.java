@@ -18,6 +18,8 @@ public class ArffGenerator {
     private static final String DATA_ENDING = "}";
     private static final String SPACE_NEWLINE = "\n";
 
+    private static final boolean IS_INCLUDE_ORIGINAL = true;
+
     private static final String FILE_CONFIGURATION = "conf/output_classes.yml";
 
     public static void main(String[] args) throws IOException {
@@ -30,6 +32,7 @@ public class ArffGenerator {
         Map<Integer, String> featureMap = new TreeMap<Integer, String>();
 
         int classificationIndex = ArffUtil.readCSV(args[0], examples, featureMap);
+
         //TODO: pretty sure this is misnomer, but for now...
         ArffUtil.readDejavuOutput(args[1],examples);
 
@@ -53,6 +56,12 @@ public class ArffGenerator {
             }
             writer.write("@ATTRIBUTE\t\"TxtSim\"\tnumeric\n");
             writer.write("@ATTRIBUTE\t\"Distance\"\tnumeric\n");
+
+
+            // extra attribute
+            if(IS_INCLUDE_ORIGINAL) {
+                writer.write("@ATTRIBUTE\tOriginal\t{BUG,CHECK,SMELL,STYLE,FALSE}\n");
+            }
 
             // 2.2.2 class attribute
             writer.write("@ATTRIBUTE\tclass\t");
@@ -82,13 +91,23 @@ public class ArffGenerator {
                 sb.append(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
                 sb.append(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
 
+                if(IS_INCLUDE_ORIGINAL) {
+                    sb.append(classificationIndex+2 + " " + cloneProperties.getCategory().toString() +",");
+                }
+
                 // write classification
                 String classification = cloneProperties.getCategory().toString();
                 boolean defined = false;
                 for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
                     Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
                     if(classes.contains(classification)) {
-                        sb.append(classificationIndex+2 + " " + name.toUpperCase());
+                        if(IS_INCLUDE_ORIGINAL) {
+                            sb.append(classificationIndex+3);
+                        } else {
+                            sb.append(classificationIndex+2);
+                        }
+                        sb.append(" ");
+                        sb.append(name.toUpperCase());
                         defined = true;
                         break;
                     }

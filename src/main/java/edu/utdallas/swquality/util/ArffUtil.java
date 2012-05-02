@@ -139,7 +139,8 @@ public class ArffUtil {
 
                 // read until find buggy differences
 
-
+                // TODO: temp premature return
+                if(true) { continue; }
 
                 examples.put(cloneGroup, cloneProperties);
                 index = dejavuInputScanner.nextLine().indexOf("Potentially buggy differences:");
