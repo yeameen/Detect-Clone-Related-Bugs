@@ -18,7 +18,7 @@ public class ArffGenerator {
     private static final String DATA_ENDING = "}";
     private static final String SPACE_NEWLINE = "\n";
 
-    private static final boolean IS_INCLUDE_ORIGINAL = true;
+    private static final boolean IS_INCLUDE_ORIGINAL_CLASSIFICATION = true;
 
     private static final String FILE_CONFIGURATION = "conf/output_classes.yml";
 
@@ -59,7 +59,7 @@ public class ArffGenerator {
 
 
             // extra attribute
-            if(IS_INCLUDE_ORIGINAL) {
+            if(IS_INCLUDE_ORIGINAL_CLASSIFICATION) {
                 writer.write("@ATTRIBUTE\tOriginal\t{BUG,CHECK,SMELL,STYLE,FALSE}\n");
             }
 
@@ -91,7 +91,7 @@ public class ArffGenerator {
                 sb.append(classificationIndex + " " + examples.get(cloneNumber).getTextSim() + ",");
                 sb.append(classificationIndex+1 + " " + examples.get(cloneNumber).getDistance() + ",");
 
-                if(IS_INCLUDE_ORIGINAL) {
+                if(IS_INCLUDE_ORIGINAL_CLASSIFICATION) {
                     sb.append(classificationIndex+2 + " " + cloneProperties.getCategory().toString() +",");
                 }
 
@@ -101,7 +101,7 @@ public class ArffGenerator {
                 for (String name : classificationBoundaryMap.get(classificationBoundaryType).keySet()) {
                     Set<String> classes = new HashSet<String>(classificationBoundaryMap.get(classificationBoundaryType).get(name));
                     if(classes.contains(classification)) {
-                        if(IS_INCLUDE_ORIGINAL) {
+                        if(IS_INCLUDE_ORIGINAL_CLASSIFICATION) {
                             sb.append(classificationIndex+3);
                         } else {
                             sb.append(classificationIndex+2);

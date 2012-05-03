@@ -9,6 +9,7 @@ import weka.filters.unsupervised.attribute.Remove;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Random;
 
 /**
  * @author Chowdhury Ashabul Yeameen
@@ -73,15 +74,26 @@ public class Weka {
                     }
                 }
 
-                // compare with original
-                Evaluation eval = new Evaluation(trainingData);
-                eval.evaluateModel(classifier, trainingData);
-                System.out.println("\n\n" + inputFile);
-                System.out.println(eval.toSummaryString("Results\n=======\n", false));
+                System.out.println("\n" + inputFile + "\n");
 
+                Evaluation eval = new Evaluation(trainingData);
+
+                // Cross validation result
+                System.out.println("Cross Validation:\n");
+                eval.crossValidateModel(classifier, trainingData, 10, new Random(1));
+                System.out.println(eval.toSummaryString("Summary:", false));
                 System.out.println(eval.toMatrixString());
-                System.out.println("Accuracy on Harmful: " + eval.truePositiveRate(0) * 100);
-                System.out.println("Accuracy on Benign: " + eval.truePositiveRate(1) * 100);
+
+                // compare with original
+                System.out.println("Validating on training:\n");
+                eval = new Evaluation(trainingData);
+                eval.evaluateModel(classifier, trainingData);
+
+                System.out.println(eval.toSummaryString("Summary:", false));
+                System.out.println(eval.toMatrixString());
+
+                System.out.format("Accuracy on Harmful: %.2f\n", eval.truePositiveRate(0) * 100);
+                System.out.format("Accuracy on Benign: %.2f\n", eval.truePositiveRate(1) * 100);
                 System.out.println();
 
                 System.out.println("Total classified bug: " + classifiedBugs);
@@ -95,6 +107,8 @@ public class Weka {
 
                 System.out.format("Ratio of bugs in harmful (Precision): %.2f %n", precision);
                 System.out.format("Recall: %.2f %n", recall);
+                System.out.format("F-score: %.2f\n", 2* precision * recall / (precision + recall));
+                System.out.println("-------------------------------------------------------------------------------------------------------------------");
 
                 // NOTE: f-score is not appropriate here
 //                System.out.format("F-score: %.2f %n", 2 * precision * recall / (precision + recall));
