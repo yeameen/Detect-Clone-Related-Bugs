@@ -12,8 +12,9 @@ import java.io.FileReader;
 
 /**
  * @author Chowdhury Ashabul Yeameen
- *         <p/>
- *         This is an attempt to test how many original bugs are in the harmful class; what is recall+accuracy on original bugs
+ * <p>
+ * This is an attempt to test how many original bugs are in the harmful class; what is recall+accuracy on original bugs
+ * </p>
  */
 public class Weka {
 
@@ -70,9 +71,6 @@ public class Weka {
                             classifiedBugs++;
                         }
                     }
-
-//                    System.out.print(i + " " + originalClassification + ": actual " + trainingData.classAttribute().value((int) trainingData.instance(i).classValue()));
-//                    System.out.println(", predicted " + trainingData.classAttribute().value((int) pred));
                 }
 
                 // compare with original
@@ -82,20 +80,27 @@ public class Weka {
                 System.out.println(eval.toSummaryString("Results\n=======\n", false));
 
                 System.out.println(eval.toMatrixString());
+                System.out.println("Accuracy on Harmful: " + eval.truePositiveRate(0) * 100);
+                System.out.println("Accuracy on Benign: " + eval.truePositiveRate(1) * 100);
+                System.out.println();
 
                 System.out.println("Total classified bug: " + classifiedBugs);
                 System.out.println("Total misclassified bug: " + (totalBugs - classifiedBugs));
-                System.out.println("Number of bugs in original: " + (double) totalBugs / trainingData.numInstances() * 100);
+                System.out.format("Ratio of bugs in original: %.2f %n", 100.0 * totalBugs / trainingData.numInstances());
 
-                System.out.println("True positive: " + (int) eval.numTruePositives(0));
-                System.out.println("False positive: " + (int) eval.numFalsePositives(0));
 
                 int totalOnHarmful = (int) (eval.numTruePositives(0) + eval.numFalsePositives(0));
-                System.out.println("Number of bugs in harmful: " + (double) classifiedBugs / totalOnHarmful * 100);
+                double precision = 100.0 * classifiedBugs / totalOnHarmful;
+                double recall = 100.0 * classifiedBugs / totalBugs;
 
+                System.out.format("Ratio of bugs in harmful (Precision): %.2f %n", precision);
+                System.out.format("Recall: %.2f %n", recall);
+
+                // NOTE: f-score is not appropriate here
+//                System.out.format("F-score: %.2f %n", 2 * precision * recall / (precision + recall));
 
             } catch (Exception e) {
-                System.out.println("File not found");
+                e.printStackTrace();
                 return;
             }
         }
