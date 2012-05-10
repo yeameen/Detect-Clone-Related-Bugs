@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{Baker1995}
 B.~S. Baker.
@@ -6,10 +6,22 @@ B.~S. Baker.
   systems.
 \newblock pages 86--95, 1995.
 
+\bibitem{Balazinska1999}
+M.~E. D. M. L. B. K.~K. Balazinska, Magdalena.
+\newblock Measuring clone based reengineering opportunities.
+\newblock pages 292--303, 1999.
+\newblock cited By (since 1996) 14.
+
 \bibitem{Baxter1998}
 Y.~A. M. L. S. M. B.~L. Baxter, Ira~D.
 \newblock Clone detection using abstract syntax trees.
 \newblock pages 368--377, 1998.
+
+\bibitem{Ducasse1999}
+R.~M. D.~S. Ducasse, Stephane.
+\newblock Language independent approach for detecting duplicated code.
+\newblock pages 109--118, 1999.
+\newblock cited By (since 1996) 113.
 
 \bibitem{Engler2001}
 C.~D. H. S. C. A. C.~B. Engler, D.
@@ -27,6 +39,12 @@ Y.~J. Y. Y. G. M. S.~Z. Gabel, M.
 M.~G. S. Z. G.~S. Jiang, L.
 \newblock Deckard: Scalable and accurate tree-based detection of code clones.
 \newblock pages 96--105, 2007.
+
+\bibitem{Juergens2009}
+D.~F. H. B. W.~S. Juergens, E.
+\newblock Do code clones matter?
+\newblock pages 485--495, 2009.
+\newblock cited By (since 1996) 34.
 
 \bibitem{Kamiya2002}
 K.~S. I.~K. Kamiya, T.
@@ -46,5 +64,12 @@ L.~S. M. S. Z.~Y. Li, Z.
   code.
 \newblock {\em IEEE Transactions on Software Engineering}, 32(3):176--192,
   2006.
+
+\bibitem{Mayrand1996}
+L.~C. M. E.~M. Mayrand, Jean.
+\newblock Experiment on the automatic detection of function clones in a
+  software system using metrics.
+\newblock pages 244--253, 1996.
+\newblock cited By (since 1996) 98.
 
 \end{thebibliography}

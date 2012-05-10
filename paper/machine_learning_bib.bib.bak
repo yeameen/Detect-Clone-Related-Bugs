@@ -6,7 +6,6 @@
   title = {On finding duplication and near-duplication in large software systems},
   year = {1995},
   pages = {86-95},
-  note = {cited By (since 1996) 27},
   document_type = {Conference Paper},
   journal = {Reverse Engineering - Working Conference Proceedings},
   owner = {yeameen},
@@ -21,13 +20,27 @@
   title = {Clone detection using abstract syntax trees},
   year = {1998},
   pages = {368-377},
-  note = {cited By (since 1996) 192},
   document_type = {Conference Paper},
   journal = {Conference on Software Maintenance},
   owner = {yeameen},
   source = {Scopus},
   timestamp = {2012.04.26},
   url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-0032311601&partnerID=40&md5=bd98e99117ba7fbee02bd8f5e5ca50d2}
+}
+
+@CONFERENCE{Ducasse1999,
+  author = {Ducasse, Stephane, Rieger, Matthias, Demeyer, Serge},
+  title = {Language independent approach for detecting duplicated code},
+  year = {1999},
+  pages = {109-118},
+  note = {cited By (since 1996) 113},
+  __markedentry = {[yeameen:]},
+  document_type = {Conference Paper},
+  journal = {Conference on Software Maintenance},
+  owner = {yeameen},
+  source = {Scopus},
+  timestamp = {2012.05.10},
+  url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-0033308732&partnerID=40&md5=dbb02472e09782f6d8a0f6fb0872475d}
 }
 
 @CONFERENCE{Engler2001,
@@ -38,7 +51,6 @@
   volume = {35},
   number = {5},
   pages = {57-72},
-  note = {cited By (since 1996) 56},
   document_type = {Article},
   journal = {Operating Systems Review (ACM)},
   owner = {yeameen},
@@ -53,7 +65,6 @@
 	code},
   year = {2010},
   pages = {175-190},
-  note = {cited By (since 1996) 0},
   document_type = {Conference Paper},
   journal = {Proceedings of the Conference on Object-Oriented Programming Systems,
 	Languages, and Applications, OOPSLA},
@@ -68,7 +79,6 @@
   title = {DECKARD: Scalable and accurate tree-based detection of code clones},
   year = {2007},
   pages = {96-105},
-  note = {cited By (since 1996) 48},
   art_number = {4222572},
   document_type = {Conference Paper},
   journal = {Proceedings - International Conference on Software Engineering},
@@ -76,6 +86,21 @@
   source = {Scopus},
   timestamp = {2012.04.26},
   url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-34548767669&partnerID=40&md5=9a75d1a529e560a47bb04720d1fc9fc4}
+}
+
+@CONFERENCE{Juergens2009,
+  author = {Juergens, E., Deissenboeck, F., Hummel, B., Wagner, S.},
+  title = {Do code clones matter?},
+  year = {2009},
+  pages = {485-495},
+  note = {cited By (since 1996) 34},
+  art_number = {5070547},
+  document_type = {Conference Paper},
+  journal = {Proceedings - International Conference on Software Engineering},
+  owner = {yeameen},
+  source = {Scopus},
+  timestamp = {2012.05.08},
+  url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-73449090740&partnerID=40&md5=5dc426c7a00d6b68e3f86337bcc84117}
 }
 
 @ARTICLE{Kamiya2002,
@@ -87,7 +112,6 @@
   volume = {28},
   pages = {654-670},
   number = {7},
-  note = {cited By (since 1996) 307},
   document_type = {Article},
   owner = {yeameen},
   source = {Scopus},
@@ -100,8 +124,6 @@
   title = {An empirical study of code clone genealogies},
   year = {2005},
   pages = {187-196},
-  note = {cited By (since 1996) 93},
-  __markedentry = {[yeameen:]},
   document_type = {Conference Paper},
   journal = {ESEC/FSE'05 - Proceedings of the Joint 10th European Software Engineering
 	Conference (ESEC) and 13th ACM SIGSOFT Symposium on the Foundations
@@ -121,8 +143,6 @@
   volume = {32},
   pages = {176-192},
   number = {3},
-  note = {cited By (since 1996) 104},
-  __markedentry = {[yeameen:6]},
   document_type = {Article},
   owner = {yeameen},
   source = {Scopus},
@@ -130,21 +150,20 @@
   url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-33645819206&partnerID=40&md5=fc506b00dd3befd8eaeeabf8dff718eb}
 }
 
-@CONFERENCE{Li2005,
-  author = {Li, Z., Zhou, Y.},
-  title = {PR-miner: Automatically extracting implicit programming rules and
-	detecting violations in large software code},
-  year = {2005},
-  pages = {306-315},
-  note = {cited By (since 1996) 75},
+@CONFERENCE{Mayrand1996,
+  author = {Mayrand, Jean, Leblanc, Claude, Merlo, Ettore M.},
+  title = {Experiment on the automatic detection of function clones in a software
+	system using metrics},
+  year = {1996},
+  pages = {244-253},
+  note = {cited By (since 1996) 98},
+  __markedentry = {[yeameen:6]},
   document_type = {Conference Paper},
-  journal = {ESEC/FSE'05 - Proceedings of the Joint 10th European Software Engineering
-	Conference (ESEC) and 13th ACM SIGSOFT Symposium on the Foundations
-	of Software Engineering (FSE-13)},
+  journal = {Conference on Software Maintenance},
   owner = {yeameen},
   source = {Scopus},
-  timestamp = {2012.04.26},
-  url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-32344452883&partnerID=40&md5=dfba295ab62f40a691733e421b195741}
+  timestamp = {2012.05.10},
+  url = {http://www.scopus.com/inward/record.url?eid=2-s2.0-0030407014&partnerID=40&md5=c7a20f95478b5ce522e7eb380db10ebf}
 }
 
 @comment{jabref-meta: selector_publisher:}
