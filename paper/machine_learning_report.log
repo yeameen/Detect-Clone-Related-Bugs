@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  10 MAY 2012 16:54
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.4.23)  10 MAY 2012 23:22
 entering extended mode
  %&-line parsing enabled.
 **machine_learning_report.tex
@@ -240,11 +240,6 @@ Missing character: There is no ú in font cmr9!
 Missing character: There is no ‚ in font cmr9!
 Missing character: There is no Ä in font cmr9!
 Missing character: There is no ù in font cmr9!
-
-Underfull \hbox (badness 1158) in paragraph at lines 43--44
-[]\OT1/cmr/m/n/9 More coarse grained ap-proach has been at-tempted.
- []
-
 <BugCase.png, id=1, 1215.03937pt x 499.11469pt>
 File: BugCase.png Graphic file (type png)
  <use BugCase.png>
@@ -257,64 +252,67 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Overfull \hbox (2.54364pt too wide) in paragraph at lines 90--90
+Overfull \hbox (2.54364pt too wide) in paragraph at lines 102--102
 []|\OT1/cmr/m/n/9 AdaBoost| 
  []
 
 
-Overfull \hbox (6.53946pt too wide) in paragraph at lines 90--90
+Overfull \hbox (6.53946pt too wide) in paragraph at lines 102--102
 []|\OT1/cmr/m/n/9 G=.2,I=30| 
  []
 
 
-Overfull \hbox (6.53946pt too wide) in paragraph at lines 90--90
+Overfull \hbox (6.53946pt too wide) in paragraph at lines 102--102
 []|\OT1/cmr/m/n/9 G=.2,I=30| 
  []
 
 
-Overfull \hbox (2.54364pt too wide) in paragraph at lines 123--123
+Overfull \hbox (2.54364pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 AdaBoost| 
  []
 
 
-Overfull \hbox (12.25607pt too wide) in paragraph at lines 123--123
+Overfull \hbox (12.25607pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 I=30,P=100| 
  []
 
 
-Overfull \hbox (2.54364pt too wide) in paragraph at lines 123--123
+Overfull \hbox (2.54364pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 AdaBoost| 
  []
 
 
-Overfull \hbox (7.6311pt too wide) in paragraph at lines 123--123
+Overfull \hbox (7.6311pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 I=30,P=50| 
  []
 
 
-Overfull \hbox (2.54364pt too wide) in paragraph at lines 123--123
+Overfull \hbox (2.54364pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 AdaBoost| 
  []
 
 
-Overfull \hbox (6.53946pt too wide) in paragraph at lines 123--123
+Overfull \hbox (6.53946pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 G=.2,I=30| 
  []
 
 
-Overfull \hbox (2.54364pt too wide) in paragraph at lines 123--123
+Overfull \hbox (2.54364pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 AdaBoost| 
  []
 
 
-Overfull \hbox (9.495pt too wide) in paragraph at lines 123--123
+Overfull \hbox (9.495pt too wide) in paragraph at lines 135--135
 []|\OT1/cmr/m/n/9 G=.2,P=50| 
  []
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Missing character: There is no ‚ in font cmr9!
 Missing character: There is no Ä in font cmr9!
 Missing character: There is no ô in font cmr9!
-[2 <./BugCase.png (PNG copy)> <./Benigncase.png (PNG copy)>]
+ [2 <./BugCase.png (PNG copy)> <./Benigncase.png (PNG copy)>]
 Missing character: There is no ‚ in font cmr9!
 Missing character: There is no Ä in font cmr9!
 Missing character: There is no ô in font cmr9!
@@ -322,7 +320,7 @@ Missing character: There is no ‚ in font cmr9!
 Missing character: There is no Ä in font cmr9!
 Missing character: There is no ô in font cmr9!
 
-Overfull \hbox (5.396pt too wide) in paragraph at lines 178--180
+Overfull \hbox (5.396pt too wide) in paragraph at lines 188--190
 []\OT1/cmr/bx/n/9 Extract non-semantic fea-tures be-tween code clones 
  []
 
@@ -330,65 +328,74 @@ Overfull \hbox (5.396pt too wide) in paragraph at lines 178--180
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [3]
-Underfull \hbox (badness 3701) in paragraph at lines 207--207
+Underfull \hbox (badness 3701) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Total Re-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Bugs in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Bugs
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Recall
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Preision
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 Recall in
  []
 
 
-Overfull \hbox (2.3066pt too wide) in paragraph at lines 207--207
+Overfull \hbox (2.3066pt too wide) in paragraph at lines 217--217
 []|\OT1/cmr/m/n/9 C,SM,ST,F| 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 230.
+
+Underfull \vbox (badness 7796) has occurred while \output is active []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 240.
+
 
 (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 230.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 240.
 
-Underfull \hbox (badness 10000) in paragraph at lines 242--245
+Underfull \hbox (badness 10000) in paragraph at lines 252--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 250--254
+Underfull \hbox (badness 10000) in paragraph at lines 260--264
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 259--263
+Underfull \hbox (badness 10000) in paragraph at lines 269--273
 
  []
 
-[5] (./machine_learning_report.bbl) [6
 
-] (./machine_learning_report.aux)
+Underfull \vbox (badness 2269) has occurred while \output is active []
+
+
+Underfull \vbox (badness 5189) has occurred while \output is active []
+
+ [5]
+(./machine_learning_report.bbl) [6] (./machine_learning_report.aux)
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.72pt have occurred.
@@ -414,7 +421,7 @@ fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/share/texmf-texlive/fonts/type1/
 public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfo
 nts/cm/cmsy8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti8
 .pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on machine_learning_report.pdf (6 pages, 303218 bytes).
+Output written on machine_learning_report.pdf (6 pages, 303030 bytes).
 PDF statistics:
  79 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
